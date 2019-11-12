@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'react-native-elements';
 
 import {createStackNavigator} from 'react-navigation-stack';
 
-import HomeScreen from '../Screens/Home'
-import UserSchedule from '../Screens/User_Schedule'
-import UserFile from '../Screens/User_File'
-import UserAccount from '../Screens/User_Account'
+import HomeScreen from '../Screens/Home';
+import UserSchedule from '../Screens/User_Schedule';
+import UserFile from '../Screens/User_File';
+import UserAccount from '../Screens/User_Account';
 
 const HomeStack = createStackNavigator({
     Home: {
