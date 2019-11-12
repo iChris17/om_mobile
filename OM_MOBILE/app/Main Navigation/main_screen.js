@@ -15,6 +15,12 @@ const HomeStack = createStackNavigator({
       screen: HomeScreen,
       navigationOptions: ({navigation}) => ({
         title: 'Inicio',
+        headerStyle:{
+          backgroundColor:"#1B4079"
+        },
+        headerTitleStyle:{
+          color:"#86BBD8"
+        }
       }),
     },
   });
@@ -24,6 +30,12 @@ const HomeStack = createStackNavigator({
       screen: UserSchedule,
       navigationOptions: ({navigation}) => ({
         title: 'Agenda',
+        headerStyle:{
+          backgroundColor:"#1B4079"
+        },
+        headerTitleStyle:{
+          color:"#86BBD8"
+        }
       }),
     },
   });
@@ -33,6 +45,12 @@ const HomeStack = createStackNavigator({
       screen: UserFile,
       navigationOptions: ({navigation}) => ({
         title: 'Expediente',
+        headerStyle:{
+          backgroundColor:"#1B4079"
+        },
+        headerTitleStyle:{
+          color:"#86BBD8"
+        }
       }),
     },
   });
@@ -42,6 +60,12 @@ const HomeStack = createStackNavigator({
       screen: UserAccount,
       navigationOptions: ({navigation}) => ({
         title: 'Cuenta',
+        headerStyle:{
+          backgroundColor:"#1B4079"
+        },
+        headerTitleStyle:{
+          color:"#86BBD8"
+        }
       }),
     },
   });
@@ -54,7 +78,7 @@ const HomeStack = createStackNavigator({
           tabBarLabel: 'Inicio',
           tabBarIcon: ({tintColor}) => (
             <Icon
-              name="compass-outline"
+              name="home-outline"
               type="material-community"
               size={22}
               color={tintColor}
@@ -68,7 +92,7 @@ const HomeStack = createStackNavigator({
           tabBarLabel: 'Agenda',
           tabBarIcon: ({tintColor}) => (
             <Icon
-              name="compass-outline"
+              name="calendar-heart"
               type="material-community"
               size={22}
               color={tintColor}
@@ -82,7 +106,7 @@ const HomeStack = createStackNavigator({
           tabBarLabel: 'Expediente',
           tabBarIcon: ({tintColor}) => (
             <Icon
-              name="compass-outline"
+              name="file-document-edit-outline"
               type="material-community"
               size={22}
               color={tintColor}
@@ -96,8 +120,8 @@ const HomeStack = createStackNavigator({
           tabBarLabel: 'Cuenta',
           tabBarIcon: ({tintColor}) => (
             <Icon
-              name="compass-outline"
-              type="material-community"
+              name='account-circle'
+              type='material-community'
               size={22}
               color={tintColor}
             />
@@ -109,8 +133,11 @@ const HomeStack = createStackNavigator({
       initialRouteName:"Home",
       order:["Home","UserSchedule","UserFile","UserAccount"],
       tabBarOptions: {
-        inactiveTintColor: '#646464',
-        activeTintColor: '#00a680',
+        inactiveTintColor: '#86BBD8',
+        activeTintColor: '#F7A9A8'  ,
+        style:{
+          backgroundColor:"#1B4079"
+        }     
       },
     },
   );
