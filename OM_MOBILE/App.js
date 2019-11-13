@@ -16,12 +16,12 @@ import {
   StatusBar,
 } from 'react-native';
 
-import AuthScreen from './app/Main Navigation/auth-screen';
+import MainScreen from './app/Main Navigation/main_screen';
 
 const App: () => React$Node = () => {
   return (
     <View style={styles.container}>
-      <AuthScreen />
+      <MainScreen />
     </View>
   );
 };
