@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, AsyncStorage} from 'react-native';
 import {Button} from 'react-native-elements';
 
+import AuthScreen from './../Main Navigation/auth-screen';
+
 export default class UserAccount extends Component {
   _signOutAsync = async () => {
     await AsyncStorage.clear();
