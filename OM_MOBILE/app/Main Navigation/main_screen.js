@@ -16,10 +16,11 @@ const HomeStack = createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title: 'Inicio',
         headerStyle:{
-          backgroundColor:"#1B4079"
+          backgroundColor:"white"
         },
         headerTitleStyle:{
-          color:"#86BBD8"
+          color:"black",
+          fontSize:20
         }
       }),
     },
@@ -31,10 +32,11 @@ const HomeStack = createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title: 'Agenda',
         headerStyle:{
-          backgroundColor:"#1B4079"
+          backgroundColor:"white"
         },
         headerTitleStyle:{
-          color:"#86BBD8"
+          color:"black",
+          fontSize:20
         }
       }),
     },
@@ -46,10 +48,11 @@ const HomeStack = createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title: 'Expediente',
         headerStyle:{
-          backgroundColor:"#1B4079"
+          backgroundColor:"white"
         },
         headerTitleStyle:{
-          color:"#86BBD8"
+          color:"black",
+          fontSize:20
         }
       }),
     },
@@ -61,10 +64,11 @@ const HomeStack = createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title: 'Cuenta',
         headerStyle:{
-          backgroundColor:"#1B4079"
+          backgroundColor:"white"
         },
         headerTitleStyle:{
-          color:"#86BBD8"
+          color:"black",
+          fontSize:20
         }
       }),
     },
@@ -78,9 +82,9 @@ const HomeStack = createStackNavigator({
           tabBarLabel: 'Inicio',
           tabBarIcon: ({tintColor}) => (
             <Icon
-              name="home-outline"
+              name="home"
               type="material-community"
-              size={22}
+              size={33}
               color={tintColor}
             />
           ),
@@ -94,7 +98,7 @@ const HomeStack = createStackNavigator({
             <Icon
               name="calendar-heart"
               type="material-community"
-              size={22}
+              size={33}
               color={tintColor}
             />
           ),
@@ -108,7 +112,7 @@ const HomeStack = createStackNavigator({
             <Icon
               name="file-document-edit-outline"
               type="material-community"
-              size={22}
+              size={33}
               color={tintColor}
             />
           ),
@@ -122,10 +126,11 @@ const HomeStack = createStackNavigator({
             <Icon
               name='account-circle'
               type='material-community'
-              size={22}
+              size={33}
               color={tintColor}
             />
           ),
+          
         }),
       }
     },
@@ -133,11 +138,13 @@ const HomeStack = createStackNavigator({
       initialRouteName:"Home",
       order:["Home","UserSchedule","UserFile","UserAccount"],
       tabBarOptions: {
-        inactiveTintColor: '#86BBD8',
-        activeTintColor: '#F7A9A8'  ,
+        inactiveTintColor: 'gray',
+        activeTintColor: '#86bbd8'  ,
         style:{
-          backgroundColor:"#1B4079"
-        }     
+          backgroundColor:"white"
+        
+        } ,
+        showLabel:false    
       },
     },
   );
