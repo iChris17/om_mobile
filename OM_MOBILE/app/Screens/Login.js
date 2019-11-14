@@ -4,16 +4,30 @@ import { Button, Image } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
 
+import t from 'tcomb-form-native';
+import { LoginStruct, LoginOptions } from '../forms/Login';
+const Form = t.form.Form;
+
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 export default class Login extends Component {
+    constructor() {
+        super();
+        this.state = {
+            loginStruct: LoginStruct,
+            loginOptions: LoginOptions
+        }
+    }
+
     _signInAsync = async () => {
         await AsyncStorage.setItem('userToken', 'abc');
         this.props.navigation.navigate('App');
     };
 
     render() {
+        const { loginStruct, loginOptions } = this.state;
+
         return (
             <View style={styles.container}>
                 <View style={styles.loginBg}>
@@ -22,6 +36,11 @@ export default class Login extends Component {
                 <View style={styles.loginHeader}>
                     <Image style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
                     <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
+                    <Form 
+                        ref="loginForm"
+                        type= {loginStruct}
+                        options={loginOptions}
+                    />
                     <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
                 </View>
             </View>
