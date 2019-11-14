@@ -13,19 +13,19 @@ import LoginScreen from './../Screens/Login';
 import AuthLoadingScreen from './../utils/loading';
 
 const HomeStack = createStackNavigator({
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: ({navigation}) => ({
-        title: 'Inicio',
-        headerStyle:{
-          backgroundColor:"white"
-        },
-        headerTitleStyle:{
-          color:"black",
-          fontSize:20
-        }
-      }),
-    },
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: ({navigation}) => ({
+      title: 'Inicio',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
+    }),
+  },
 });
 
 const UserScheduleStack = createStackNavigator({
@@ -33,6 +33,13 @@ const UserScheduleStack = createStackNavigator({
     screen: UserSchedule,
     navigationOptions: ({navigation}) => ({
       title: 'Agenda',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
     }),
   },
 });
@@ -42,6 +49,13 @@ const UserFileStack = createStackNavigator({
     screen: UserFile,
     navigationOptions: ({navigation}) => ({
       title: 'Expediente',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
     }),
   },
 });
@@ -51,6 +65,13 @@ const UserAccountStack = createStackNavigator({
     screen: UserAccount,
     navigationOptions: ({navigation}) => ({
       title: 'Cuenta',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
     }),
   },
 });
@@ -66,48 +87,6 @@ const AuthStack = createStackNavigator({
 
 const MainStack = createBottomTabNavigator(
   {
-    Home: {
-      screen: HomeStack,
-      navigationOptions: ({navigation}) => ({
-        title: 'Agenda',
-        headerStyle:{
-          backgroundColor:"white"
-        },
-        headerTitleStyle:{
-          color:"black",
-          fontSize:20
-        }
-      }),
-    },
-    UserSchedule:{
-      screen: UserScheduleStack,
-      navigationOptions: ({navigation}) => ({
-        title: 'Expediente',
-        headerStyle:{
-          backgroundColor:"white"
-        },
-        headerTitleStyle:{
-          color:"black",
-          fontSize:20
-        }
-      }),
-    },
-    UserFile:{
-      screen: UserFileStack,
-      navigationOptions: ({navigation}) => ({
-        title: 'Cuenta',
-        headerStyle:{
-          backgroundColor:"white"
-        },
-        headerTitleStyle:{
-          color:"black",
-          fontSize:20
-        }
-      }),
-    },
-  });
-
-  const MainStack = createBottomTabNavigator({
     Home: {
       screen: HomeStack,
       navigationOptions: ({navigation}) => ({
@@ -165,7 +144,8 @@ const MainStack = createBottomTabNavigator(
         
       }),
     }
-  }, {
+  },
+  {
     initialRouteName:"Home",
     order:["Home","UserSchedule","UserFile","UserAccount"],
     tabBarOptions: {
@@ -176,7 +156,9 @@ const MainStack = createBottomTabNavigator(
       
       } ,
       showLabel:false    
-    }});
+    },
+  },
+);
 
 const SwitchAuth = createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
