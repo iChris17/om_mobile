@@ -4,8 +4,6 @@ import { Button, Image } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { SvgXml } from 'react-native-svg';
 
-import fondo from '../../assets/bg01.svg';
-
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
