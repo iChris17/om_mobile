@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage, Dimensions, Text, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, 
+        View, 
+        AsyncStorage, 
+        Dimensions, 
+        Text, 
+        ActivityIndicator, 
+        KeyboardAvoidingView,
+        StatusBar } from 'react-native';
 import { Button, Image, Icon } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
-
 import t from 'tcomb-form-native';
 import { LoginStruct, LoginOptions } from '../forms/Login';
-import { bold } from 'colorette';
-const Form = t.form.Form;
 
+const Form = t.form.Form;
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -36,57 +41,63 @@ export default class Login extends Component {
         const { loginStruct, loginOptions, invalid } = this.state;
 
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <View style={styles.loginBg}>
-                    <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
-                </View>
-                <View style={styles.loginHeader}>
-                    <Image style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
-                    <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
-                </View>
-                <View style={styles.loginForm}>
-                    { invalid ? (
-                        <Text style={styles.textForm}>USUARIO O CONTRASEÑA INVALIDOS</Text>
-                    ) : (
-                        null
-                    )}
-                    <Form 
-                        ref="loginForm"
-                        type= {loginStruct}
-                        options={loginOptions}
-                    />
-                    <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
-                </View>
-                <View style={styles.loginFooter}>
-                    <View style={{flexDirection: 'row', flexWrap:'wrap'}}>
-                        <Button
-                            icon={
-                                <Icon
-                                    name='google'
-                                    type='font-awesome'
-                                    size={50}
-                                    color='#1B4079'
-                                />
-                            }
-                            buttonStyle={styles.buttonFooter}
+            <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
+                <View style={styles.container}>
+                    <StatusBar translucent={true} backgroundColor={'transparent'} />
+                    <View style={styles.loginBg}>
+                        <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
+                    </View>
+                    <View style={styles.loginHeader}>
+                        <Image style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
+                        <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
+                    </View>
+                    <View style={styles.loginForm}>
+                        { invalid ? (
+                            <Text style={styles.textForm}>USUARIO O CONTRASEÑA INVALIDOS</Text>
+                        ) : (
+                            null
+                        )}
+                        <Form 
+                            ref="loginForm"
+                            type= {loginStruct}
+                            options={loginOptions}
                         />
-                        <Button
-                            icon={
-                                <Icon
-                                    name='apple'
-                                    type='font-awesome'
-                                    size={50}
-                                    color='#1B4079'
+                        <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
+                    </View>
+                    <View style={styles.loginFooter}>
+                        <View style={{flexDirection: 'row', flexWrap:'wrap'}}>
+                            {(Platform.OS === "ios") ? (
+                                <Button
+                                    icon={
+                                        <Icon
+                                            name='apple'
+                                            type='font-awesome'
+                                            size={60}
+                                            color='#1B4079'
+                                        />
+                                    }
+                                    buttonStyle={styles.buttonFooter}
                                 />
-                            }
-                            buttonStyle={styles.buttonFooter}
+                            ) : (
+                                <Button
+                                    icon={
+                                        <Icon
+                                            name='google'
+                                            type='font-awesome'
+                                            size={60}
+                                            color='#1B4079'
+                                        />
+                                    }
+                                    buttonStyle={styles.buttonFooter}
+                                />
+                            )}
+                        </View>
+                        <Button
+                            title="¿Olvidó su contraseña?"
+                            type="clear"
+                            style={{position: 'absolute', marginTop: 0}}
                         />
                     </View>
-                    <Button
-                        title="¿Olvidó su contraseña?"
-                        type="clear"
-                        style={{flex: 1, position: 'absolute', marginTop: 50}}
-                    />
                 </View>
             </KeyboardAvoidingView>
         );
@@ -95,7 +106,9 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         width: width,
         height: height
     },
@@ -105,17 +118,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         width: width + 100,
-        height: height * 0.6
+        height: height * 0.67
     },
     loginHeader: {
-        top: 0,
         alignItems: 'center',
         paddingTop: 20,
         width: width,
         height: height * 0.4,
     },
     loginText:{
-        marginTop: 50,
+        marginTop: 40,
         color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
@@ -128,20 +140,20 @@ const styles = StyleSheet.create({
         height: 200
     },
     loginForm: {
-        paddingTop: 20,
         alignItems: 'center',
+        justifyContent: 'center',
         width: width,
         height: height * 0.4,
+        paddingTop: 20
     },
     textForm: {
-        position: 'absolute',
         top: 10,
         color: '#e80000',
         fontSize: 12,
         fontWeight: 'bold',
         textShadowColor: 'rgba(255, 255, 255, 0.5)',
         textShadowOffset: {width: 0, height: 0},
-        textShadowRadius: 3,
+        textShadowRadius: 3
     },
     button: {
         backgroundColor: '#86BBD8',
@@ -153,10 +165,9 @@ const styles = StyleSheet.create({
     loginFooter: {
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
         width: width,
         height: height * 0.2,
-        bottom: 0,
+        paddingTop: 10,
     },
     buttonFooter: {
         backgroundColor: 'transparent',
@@ -169,21 +180,22 @@ const styles = StyleSheet.create({
     }
 });
 
-const markerRendering = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1459.538" height="1248.49" viewBox="0 0 1459.538 1248.49">
-<defs>
-  <linearGradient id="linear-gradient" x1="1" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-    <stop offset="0" stop-color="#1b4079"/>
-    <stop offset="1" stop-color="#86bbd8"/>
-  </linearGradient>
-  <filter id="Trazado_1" x="0" y="0" width="1459.538" height="1248.49" filterUnits="userSpaceOnUse">
-    <feOffset dy="5" input="SourceAlpha"/>
-    <feGaussianBlur stdDeviation="7.5" result="blur"/>
-    <feFlood/>
-    <feComposite operator="in" in2="blur"/>
-    <feComposite in="SourceGraphic"/>
-  </filter>
-</defs>
-<g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Trazado_1)">
-  <path id="Trazado_1-2" data-name="Trazado 1" d="M-158.428,1116.542S1041.1,1139.175,1256.11,690.295V-86.758H-158.428Z" transform="translate(180.93 104.26)" fill="url(#linear-gradient)"/>
-</g>
+const markerRendering = 
+`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1580" height="1965" viewBox="0 0 1580 1965">
+    <defs>
+        <linearGradient id="linear-gradient" x1="0.888" y1="0.078" x2="0.12" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#1b4079"/>
+            <stop offset="1" stop-color="#86bbd8"/>
+        </linearGradient>
+        <filter id="Trazado_1" x="0" y="0" width="1580" height="1965" filterUnits="userSpaceOnUse">
+            <feOffset dy="5" input="SourceAlpha"/>
+            <feGaussianBlur stdDeviation="7.5" result="blur"/>
+            <feFlood/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Trazado_1)">
+        <path id="Trazado_1-2" data-name="Trazado 1" d="M-158.428,1832.939s1301.68,36.107,1535-680.018V-86.758h-1535Z" transform="translate(180.93 104.26)" fill="url(#linear-gradient)"/>
+    </g>
 </svg>`;
