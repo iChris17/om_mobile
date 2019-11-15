@@ -4,8 +4,8 @@ import {Avatar,ListItem} from 'react-native-elements'
 
 let Name="Christopher Acevedo"
 let Gender="Masculino, "
-let Mail="prueba@gmail.com, "
-let Age = "20 "
+let Mail="prueba@gmail.com "
+let Age = "20 Años, "
 
 export default class componentName extends Component {
   render() {
@@ -15,14 +15,18 @@ export default class componentName extends Component {
           leftAvatar={<Avatar
             size="medium"
             rounded
-            title="CR"           
+            icon={{ name:'account-circle',
+            type:'material-community',size:50}}      
+             
           />}
           title={Name}
+          titleStyle={{fontWeight:"bold" ,fontSize:16,color:"white"}}
           subtitle={
               <View>
-            <Text>{Gender +Mail+Age}</Text>
+            <Text style={{color:"white"}}>{Gender +Age+Mail}</Text>
             </View>
           }
+          
           chevron={{ color: 'black'}}
           containerStyle={styles.ProfileItem}
           onPress={()=>{
@@ -38,20 +42,16 @@ export default class componentName extends Component {
 
 const styles = StyleSheet.create({
     viewBody:{      
-        borderColor:"black",
-        borderWidth:1,
-      //  flexDirection:"row"             
+        
+           marginTop:5,
+           marginBottom:30     
     },
     AvatarContainer:{       
         marginRight:10,
         marginLeft:10,
-       // marginTop:10,
-       // marginBottom:10
     },
-    GeneralDataContainer:{
-        flex:2,       
+    GeneralDataContainer:{          
         marginRight:5,
-       // marginLeft:5,
         marginTop:5,
         marginBottom:5
     },
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         fontSize:14
     },
     ProfileItem:{
-        backgroundColor:"gray"
+        backgroundColor:"#f7a9ab",
+        borderRadius:10
     }
 })
