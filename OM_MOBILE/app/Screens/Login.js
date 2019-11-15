@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage, Dimensions, Text, ActivityIndicator } from 'react-native';
-import { Button, Image } from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleSheet, View, AsyncStorage, Dimensions, Text, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { Button, Image, Icon } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
 
 import t from 'tcomb-form-native';
 import { LoginStruct, LoginOptions } from '../forms/Login';
+import { bold } from 'colorette';
 const Form = t.form.Form;
 
 const width = Dimensions.get('window').width;
@@ -16,26 +16,40 @@ export default class Login extends Component {
         super();
         this.state = {
             loginStruct: LoginStruct,
-            loginOptions: LoginOptions
+            loginOptions: LoginOptions,
+            invalid: false
         }
     }
 
     _signInAsync = async () => {
-        await AsyncStorage.setItem('userToken', 'abc');
-        this.props.navigation.navigate('App');
+        const validate = this.refs.loginForm.getValue();
+        if(validate) {
+            this.setState({invalid: false});
+            await AsyncStorage.setItem('userToken', 'abc');
+            this.props.navigation.navigate('App');
+        } else {
+            this.setState({invalid: true});
+        }
     };
 
     render() {
-        const { loginStruct, loginOptions } = this.state;
+        const { loginStruct, loginOptions, invalid } = this.state;
 
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.loginBg}>
                     <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
                 </View>
                 <View style={styles.loginHeader}>
                     <Image style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
                     <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
+                </View>
+                <View style={styles.loginForm}>
+                    { invalid ? (
+                        <Text style={styles.textForm}>USUARIO O CONTRASEÑA INVALIDOS</Text>
+                    ) : (
+                        null
+                    )}
                     <Form 
                         ref="loginForm"
                         type= {loginStruct}
@@ -43,7 +57,38 @@ export default class Login extends Component {
                     />
                     <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
                 </View>
-            </View>
+                <View style={styles.loginFooter}>
+                    <View style={{flexDirection: 'row', flexWrap:'wrap'}}>
+                        <Button
+                            icon={
+                                <Icon
+                                    name='google'
+                                    type='font-awesome'
+                                    size={50}
+                                    color='#1B4079'
+                                />
+                            }
+                            buttonStyle={styles.buttonFooter}
+                        />
+                        <Button
+                            icon={
+                                <Icon
+                                    name='apple'
+                                    type='font-awesome'
+                                    size={50}
+                                    color='#1B4079'
+                                />
+                            }
+                            buttonStyle={styles.buttonFooter}
+                        />
+                    </View>
+                    <Button
+                        title="¿Olvidó su contraseña?"
+                        type="clear"
+                        style={{flex: 1, position: 'absolute', marginTop: 50}}
+                    />
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -51,7 +96,8 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        justifyContent: 'center',
+        width: width,
+        height: height
     },
     loginBg: {
         position: 'absolute',
@@ -59,21 +105,17 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         width: width + 100,
-        height: height * 0.7
-    },
-    svgShadow: {
-        textShadowColor: 'rgba(0, 0, 0, 0.5)',
-        textShadowOffset: {width: 0, height: 2},
-        textShadowRadius: 3,
+        height: height * 0.6
     },
     loginHeader: {
+        top: 0,
         alignItems: 'center',
-        padding: 20,
+        paddingTop: 20,
         width: width,
-        height: 320
+        height: height * 0.4,
     },
     loginText:{
-        marginTop: 20,
+        marginTop: 50,
         color: '#fff',
         fontSize: 24,
         fontWeight: 'bold',
@@ -85,12 +127,45 @@ const styles = StyleSheet.create({
         width: (width * 0.5),
         height: 200
     },
+    loginForm: {
+        paddingTop: 20,
+        alignItems: 'center',
+        width: width,
+        height: height * 0.4,
+    },
+    textForm: {
+        position: 'absolute',
+        top: 10,
+        color: '#e80000',
+        fontSize: 12,
+        fontWeight: 'bold',
+        textShadowColor: 'rgba(255, 255, 255, 0.5)',
+        textShadowOffset: {width: 0, height: 0},
+        textShadowRadius: 3,
+    },
     button: {
         backgroundColor: '#86BBD8',
         height: 50,
         width: (width * 0.5),
         borderRadius: 60,
         margin: 10
+    },
+    loginFooter: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        width: width,
+        height: height * 0.2,
+        bottom: 0,
+    },
+    buttonFooter: {
+        backgroundColor: 'transparent',
+        marginLeft: 10,
+        marginRight: 10
+    },
+    buttonFooterIcon: {
+        width: 70,
+        height: 70
     }
 });
 
