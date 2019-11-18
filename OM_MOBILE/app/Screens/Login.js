@@ -5,7 +5,6 @@ import { StyleSheet,
         Dimensions, 
         Text, 
         ActivityIndicator, 
-        KeyboardAvoidingView,
         StatusBar } from 'react-native';
 import { Button, Image, Icon } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
@@ -41,14 +40,14 @@ export default class Login extends Component {
         const { loginStruct, loginOptions, invalid } = this.state;
 
         return (
-            <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
+            // <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
                 <View style={styles.container}>
                     <StatusBar translucent={true} backgroundColor={'transparent'} />
                     <View style={styles.loginBg}>
                         <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
                     </View>
                     <View style={styles.loginHeader}>
-                        <Image style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
+                        <Image resizeMode={'stretch'} style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
                         <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
                     </View>
                     <View style={styles.loginForm}>
@@ -99,7 +98,7 @@ export default class Login extends Component {
                         />
                     </View>
                 </View>
-            </KeyboardAvoidingView>
+            // </KeyboardAvoidingView>
         );
     }
 }
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     },
     loginHeader: {
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 40,
         width: width,
         height: height * 0.4,
     },
@@ -136,8 +135,8 @@ const styles = StyleSheet.create({
         textShadowRadius: 3,
     },
     loginImg: {
-        width: (width * 0.5),
-        height: 200
+        width: (width * 0.4),
+        height: (height * 0.2)
     },
     loginForm: {
         alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text,Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions, AsyncStorage} from 'react-native';
 import {Button} from 'react-native-elements';
 
 import MainAccountComponent from '../Components/AccountComponents/index'
@@ -15,7 +15,7 @@ export default class UserAccount extends Component {
   render() {
     return (
       <View style={styles.viewBody}>
-      <MainAccountComponent/>
+        <MainAccountComponent/>
       </View>
     );
   }
