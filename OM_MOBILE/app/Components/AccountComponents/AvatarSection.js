@@ -11,6 +11,7 @@ export default class componentName extends Component {
   render() {
     return (
       <View style={styles.viewBody}>
+        <Text style={styles.text}>MI CUENTA</Text>
           <ListItem
           leftAvatar={<Avatar
             size="medium"
@@ -45,6 +46,11 @@ const styles = StyleSheet.create({
         
            marginTop:5,
            marginBottom:30     
+    },
+    text: {
+      color: '#8e8e93',
+      marginBottom:5,
+     
     },
     AvatarContainer:{       
         marginRight:10,

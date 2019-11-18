@@ -21,11 +21,13 @@ export default class Login extends Component {
         this.state = {
             loginStruct: LoginStruct,
             loginOptions: LoginOptions,
-            invalid: false
+            invalid: false,
+            logOut:false
         }
     }
 
     _signInAsync = async () => {
+
         const validate = this.refs.loginForm.getValue();
         if(validate) {
             this.setState({invalid: false});
@@ -35,6 +37,14 @@ export default class Login extends Component {
             this.setState({invalid: true});
         }
     };
+
+    logout(){
+        this.setState({logOut:true})
+    }
+
+    componentWillMount(){
+        console.log('LOGIN')
+    }
 
     render() {
         const { loginStruct, loginOptions, invalid } = this.state;
