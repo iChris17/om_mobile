@@ -11,6 +11,7 @@ import UserFile from '../Screens/User_File';
 import UserAccount from '../Screens/User_Account';
 import LoginScreen from './../Screens/Login';
 import AuthLoadingScreen from './../utils/loading';
+import EditUserInfoScreen from './../Components/AccountComponents/EditUserInfo'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -60,6 +61,7 @@ const UserFileStack = createStackNavigator({
   },
 });
 
+
 const UserAccountStack = createStackNavigator({
   Home: {
     screen: UserAccount,
@@ -74,6 +76,19 @@ const UserAccountStack = createStackNavigator({
       }
     }),
   },
+  EditUserInfo: {
+    screen: EditUserInfoScreen,
+    navigationOptions: ({navigation}) => ({
+      title: 'Editar Cuenta',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
+    }),
+  }
 });
 
 const AuthStack = createStackNavigator({
@@ -163,7 +178,7 @@ const MainStack = createBottomTabNavigator(
 const SwitchAuth = createSwitchNavigator({
   AuthLoading: AuthLoadingScreen,
   App: MainStack,
-  Auth: AuthStack
+  Auth: AuthStack,
 }, {
   initialRouteName: 'AuthLoading'
 });
