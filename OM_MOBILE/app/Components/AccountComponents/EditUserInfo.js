@@ -9,7 +9,7 @@ import {
 import React, {Component} from 'react';
 import {Avatar, Input, Button} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
-import {PERMISSIONS} from 'react-native-permissions';
+import {PERMISSIONS, request} from 'react-native-permissions';
 export default class EditUserInfo extends Component {
   constructor() {
     super();
@@ -57,12 +57,41 @@ export default class EditUserInfo extends Component {
           });
         }
       });
+    } else {
+      request(PERMISSIONS.IOS.PHOTO_LIBRARY).then(result => {
+        // …
+        console.log(result);
+        if (result === 'granted') {
+          let options = {
+            title: 'Seleccionar Foto',
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+            takePhotoButtonTitle: 'Tomar Foto',
+            chooseFromLibraryButtonTitle: 'Escoger de la librería',
+            cancelButtonTitle: 'Cancelar',
+          };
+
+          ImagePicker.showImagePicker(options, response => {
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              this.setState({
+                sourceAvatar: response.uri,
+              });
+            }
+          });
+        }
+      });
     }
   };
 
-  onPressConfirmEdit=()=>{
+  onPressConfirmEdit = () => {
     this.props.navigation.goBack();
-  }
+  };
 
   render() {
     return (
@@ -103,7 +132,9 @@ export default class EditUserInfo extends Component {
             <Button
               title="Actualizar Información"
               buttonStyle={styles.ConfirmButton}
-              onPress={()=>{this.onPressConfirmEdit()}}
+              onPress={() => {
+                this.onPressConfirmEdit();
+              }}
             />
           </View>
         </View>
