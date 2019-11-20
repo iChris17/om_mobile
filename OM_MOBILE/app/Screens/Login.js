@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, 
-        View, 
-        AsyncStorage, 
+        View,
         Dimensions, 
         Text, 
         ActivityIndicator, 
@@ -10,6 +9,7 @@ import { Button, Image, Icon } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
 import t from 'tcomb-form-native';
 import { LoginStruct, LoginOptions } from '../forms/Login';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Form = t.form.Form;
 const width = Dimensions.get('window').width;
@@ -146,7 +146,8 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     textForm: {
-        top: 10,
+        position: 'absolute',
+        top: 20,
         color: '#e80000',
         fontSize: 12,
         fontWeight: 'bold',

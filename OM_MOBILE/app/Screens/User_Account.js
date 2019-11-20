@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Dimensions, AsyncStorage} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
+
+import AsyncStorage from '@react-native-community/async-storage';
 import {Button} from 'react-native-elements';
 
 import MainAccountComponent from '../Components/AccountComponents/index'
