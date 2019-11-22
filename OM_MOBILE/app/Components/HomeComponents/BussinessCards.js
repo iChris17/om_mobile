@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {Card, Button, Image} from 'react-native-elements';
+import {View, StyleSheet, Text, Platform} from 'react-native';
+import {Card, Button, Image,SearchBar} from 'react-native-elements';
 const consultorios = [
   {
     name: 'Consultorio de prueba',
@@ -19,7 +19,7 @@ const consultorios = [
   {
     name: 'Consultorio de prueba',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
-    logo: 'https://static.wixstatic.com/media/7a16a5_db2550a94c684b768b1e5d212fed5ce3~mv2.jpg/v1/crop/x_0,y_28,w_1202,h_355/fill/w_368,h_113,al_c,q_80,usm_0.66_1.00_0.01/LOGO%20LABINCO%2050-02.webp',
+    logo: 'https://static.wixstatic.com/media/7a16a5_db2550a94c684b768b1e5d212fed5ce3~mv2.jpg',
     description:
       'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
   },
@@ -29,6 +29,7 @@ export default class BussinessComponent extends Component {
   render() {
     return (
       <View>
+        <SearchBar placeholder="Buscar" platform={Platform.OS==="ios"?"ios":"android"} searchIcon showCancel/>
         {consultorios.map((u, i) => {
           return (
             <View>
@@ -43,7 +44,9 @@ export default class BussinessComponent extends Component {
                   source={{uri: u.logo}}
                 />
                 <Text style={styles.descriptionStyle}>{u.description}</Text>
+                <Text style={styles.descriptionStyle}>{"Direccion: "+u.addres}</Text>
                 <Button
+                key={i}
                   title="Ver detalles"
                   buttonStyle={styles.detailsButton}
                 />
@@ -59,6 +62,7 @@ export default class BussinessComponent extends Component {
 const styles = StyleSheet.create({
   detailsButton: {
     backgroundColor: '#e58586',
+    marginTop:5
   },
   headerStyle: {
     fontWeight: 'bold',
@@ -67,21 +71,21 @@ const styles = StyleSheet.create({
   },
   descriptionStyle: {
     textAlign: 'left',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 0,
     fontSize: 16,
     color: '#48484a',
   },
   cardStyle: {
     borderRadius: 10,
-    /* borderWidth:1,
-        shadowRadius:10,
+    borderWidth:1,
+        shadowRadius:2,
         shadowOpacity:0.2,
         shadowColor:"#48484a",
         shadowOffset:{
             width:3,
             height:5
-        },*/
+        },
     elevation: 4,
   },
   logoStyle: {

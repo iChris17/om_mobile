@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     viewBody: {
       //marginLeft: 10,
       //marginRight: 10,
-      marginTop: 10,
+      //marginTop: 10,
       marginBottom: 10,
     },
   });
