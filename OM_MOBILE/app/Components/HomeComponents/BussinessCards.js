@@ -15,7 +15,7 @@ const consultorios = [
     logo: 'https://clinicavalle.com/wp-content/themes/clinicavalle/assets/img/logo.png',
     description:
       'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
-  },
+  }, 
   {
     name: 'Consultorio de prueba',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
@@ -26,13 +26,18 @@ const consultorios = [
 ];
 
 export default class BussinessComponent extends Component {
+
+onPressDetails=()=>{
+  this.props.goClinic()
+}
+
   render() {
     return (
       <View>
-        <SearchBar placeholder="Buscar" platform={Platform.OS==="ios"?"ios":"android"} searchIcon showCancel/>
+        
         {consultorios.map((u, i) => {
           return (
-            <View>
+            <View key={i}>
               <Card
                 title={u.name}
                 key={i}
@@ -49,6 +54,7 @@ export default class BussinessComponent extends Component {
                 key={i}
                   title="Ver detalles"
                   buttonStyle={styles.detailsButton}
+                  onPress={()=>{this.onPressDetails()}}
                 />
               </Card>
             </View>

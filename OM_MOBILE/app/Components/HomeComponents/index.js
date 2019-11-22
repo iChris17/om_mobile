@@ -7,7 +7,7 @@ export default class HomeMainComponent extends Component {
   render() {
     return (
           <View style={styles.viewBody}>
-              <BussinessCards/>
+              <BussinessCards goClinic={this.props.goClinic} />
           </View>    
     );
   }
