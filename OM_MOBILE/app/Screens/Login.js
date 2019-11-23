@@ -12,8 +12,8 @@ import { LoginStruct, LoginOptions } from '../forms/Login';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Form = t.form.Form;
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 export default class Login extends Component {
     constructor() {

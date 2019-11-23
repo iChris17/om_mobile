@@ -32,16 +32,6 @@ const HomeStack = createStackNavigator({
 const UserScheduleStack = createStackNavigator({
   Home: {
     screen: UserSchedule,
-    navigationOptions: ({navigation}) => ({
-      title: 'Agenda',
-      headerStyle:{
-        backgroundColor:"white"
-      },
-      headerTitleStyle:{
-        color:"black",
-        fontSize:20
-      }
-    }),
   },
 });
 
@@ -60,7 +50,6 @@ const UserFileStack = createStackNavigator({
     }),
   },
 });
-
 
 const UserAccountStack = createStackNavigator({
   Home: {
