@@ -1,22 +1,30 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {Button} from 'react-native-elements';
+import {StyleSheet, View, Dimensions, ScrollView} from 'react-native';
+import {Button,SearchBar} from 'react-native-elements';
+
+import HomeMainComponent from '../Components/HomeComponents/index'
+
+const dim=Dimensions.get('screen')
 
 export default class Home extends Component {
+  goClinic = () => {
+    this.props.navigation.navigate('Clinic')
+  };
   render() {
     return (
-      <View style={styles.viewBody}>
-        <Text>Home Screen</Text>
-      </View>
+      <ScrollView>
+        <SearchBar placeholder="Buscar" platform={Platform.OS==="ios"?"ios":"android"} searchIcon showCancel/>
+      <ScrollView contentContainerStyle={styles.viewBody}>
+        <HomeMainComponent goClinic={this.goClinic} />
+      </ScrollView>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   viewBody: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#f2f2f7',
+    
   },
 });

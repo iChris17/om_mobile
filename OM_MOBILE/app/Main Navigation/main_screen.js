@@ -12,6 +12,7 @@ import UserAccount from '../Screens/User_Account';
 import LoginScreen from './../Screens/Login';
 import AuthLoadingScreen from './../utils/loading';
 import EditUserInfoScreen from './../Components/AccountComponents/EditUserInfo'
+import ClinicInformationScreen from '../Components/HomeComponents/ClinicComponents/MainClinicComponent'
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -27,6 +28,19 @@ const HomeStack = createStackNavigator({
       }
     }),
   },
+  Clinic:{
+    screen:ClinicInformationScreen,
+    navigationOptions: ({navigation}) => ({
+      title: 'Información de la Clínica',
+      headerStyle:{
+        backgroundColor:"white"
+      },
+      headerTitleStyle:{
+        color:"black",
+        fontSize:20
+      }
+    }),
+  }
 });
 
 const UserScheduleStack = createStackNavigator({

@@ -31,30 +31,7 @@ export default class EditUserInfo extends Component {
         },
       ).then(result => {
         if (result === PermissionsAndroid.RESULTS.GRANTED) {
-          let options = {
-            title: 'Seleccionar Foto',
-            storageOptions: {
-              skipBackup: true,
-              path: 'images',
-            },
-            takePhotoButtonTitle: 'Tomar Foto',
-            chooseFromLibraryButtonTitle: 'Escoger de la librería',
-            cancelButtonTitle: 'Cancelar',
-          };
-
-          ImagePicker.showImagePicker(options, response => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              this.setState({
-                sourceAvatar: response.uri,
-              });
-            }
-          });
+          this.showPhotoPicker()
         }
       });
     } else {
@@ -62,32 +39,36 @@ export default class EditUserInfo extends Component {
         // …
         console.log(result);
         if (result === 'granted') {
-          let options = {
-            title: 'Seleccionar Foto',
-            storageOptions: {
-              skipBackup: true,
-              path: 'images',
-            },
-            takePhotoButtonTitle: 'Tomar Foto',
-            chooseFromLibraryButtonTitle: 'Escoger de la librería',
-            cancelButtonTitle: 'Cancelar',
-          };
-
-          ImagePicker.showImagePicker(options, response => {
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              this.setState({
-                sourceAvatar: response.uri,
-              });
-            }
-          });
+          this.showPhotoPicker()
         }
       });
     }
   };
+
+  showPhotoPicker(){
+    let options = {
+      title: 'Seleccionar Foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+      takePhotoButtonTitle: 'Tomar Foto',
+      chooseFromLibraryButtonTitle: 'Escoger de la librería',
+      cancelButtonTitle: 'Cancelar',
+    };
+
+    ImagePicker.showImagePicker(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        this.setState({
+          sourceAvatar: response.uri,
+        });
+      }
+    });
+  }
 
   onPressConfirmEdit = () => {
     this.props.navigation.goBack();
