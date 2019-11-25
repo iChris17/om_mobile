@@ -7,8 +7,8 @@ import HomeMainComponent from '../Components/HomeComponents/index'
 const dim=Dimensions.get('screen')
 
 export default class Home extends Component {
-  goClinic = () => {
-    this.props.navigation.navigate('Clinic')
+  goClinic = (params=null) => {
+    this.props.navigation.navigate('Clinic',{params})
   };
   render() {
     return (

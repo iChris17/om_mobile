@@ -5,6 +5,7 @@ const consultorios = [
   {
     name: 'Consultorio de prueba',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
+    city:"Managua, Nicaragua",
     logo: 'http://www.hospitalvivianpellas.com/wp-content/themes/vivianpellas-theme/assets/images/logo-hospital-vivian-pellas-2017-01@3x.png',
     description:
       'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
@@ -12,6 +13,7 @@ const consultorios = [
   {
     name: 'Consultorio de prueba',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
+    city:"Managua, Nicaragua",
     logo: 'https://clinicavalle.com/wp-content/themes/clinicavalle/assets/img/logo.png',
     description:
       'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
@@ -19,6 +21,7 @@ const consultorios = [
   {
     name: 'Consultorio de prueba',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
+    city:"Managua, Nicaragua",
     logo: 'https://static.wixstatic.com/media/7a16a5_db2550a94c684b768b1e5d212fed5ce3~mv2.jpg',
     description:
       'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
@@ -28,7 +31,7 @@ const consultorios = [
 export default class BussinessComponent extends Component {
 
 onPressDetails=()=>{
-  this.props.goClinic()
+  this.props.goClinic(consultorios[0])
 }
 
   render() {
