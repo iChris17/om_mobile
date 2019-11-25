@@ -6,7 +6,7 @@ export const Appointments = [
         medico: 'Luis Palacios',
         especialidad: 'Medicina General',
         objetivo: 'Irure occaecat eu magna enim fugiat eu.',
-        fecha: '2019-12-19T07:00:00Z',
+        fecha: '2019-12-19T07:00:00',
         estado: true
     },
     {
@@ -15,7 +15,7 @@ export const Appointments = [
         medico: 'José Silva',
         especialidad: 'Medicina General',
         objetivo: 'Dolor labore pariatur esse veniam non in do.',
-        fecha: '2020-01-11T07:30:00Z',
+        fecha: '2020-01-11T07:30:00',
         estado: true
     }
 ]

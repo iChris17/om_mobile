@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Dimensions, ScrollView, TouchableHighlight, Modal} from 'react-native';
 import {Button, Icon, ListItem} from 'react-native-elements';
 import {Appointments} from '../variables/appointments';
+import ModalSchedule from '../Components/HomeComponents/ModalSchedule';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -29,7 +30,16 @@ export default class UserSchedule extends Component {
         detail: [],
         months: []
       },
-      modal: false
+      modal: false,
+      app: {
+        clinica: '',
+        sala: 0,
+        medico: '',
+        especialidad: '',
+        objetivo: '',
+        fecha: new Date(),
+        estado: true
+      }
     }
   }
 
@@ -55,8 +65,14 @@ export default class UserSchedule extends Component {
     });
   }
 
-  setModalVisible(visible) {
-    this.setState({modal: visible});
+  setModalVisible(visible, app) {
+    this.setState({modal: visible, app: app});
+  }
+
+  convertFecha(date) {
+    const newDate = new Date(date).toString();
+    console.log(newDate);
+    return newDate
   }
 
   GetAppointmentsViews() {
@@ -64,15 +80,16 @@ export default class UserSchedule extends Component {
     
     return(
       <View style={{paddingLeft: 15, paddingRight: 15}}>
-        {appointments.detail.map(app => {
+        {appointments.detail.map((app, i) => {
           return(
             <View style={styles.card}>
               <View style={styles.cardTitle}>
                 <Text style={styles.title}>{appointments.months.filter(m => m.number === new Date(app.fecha).getMonth()).map(m => m.month)}</Text>
               </View>
               <View style={styles.cardBody}>
-                <TouchableHighlight style={styles.list} activeOpacity={0.9} onPress={() => this.setModalVisible(true)}>
+                <TouchableHighlight style={styles.list} activeOpacity={0.9} onPress={() => this.setModalVisible(true, app)}>
                   <ListItem
+                    key={i}
                     leftAvatar={{title: new Date(app.fecha).getDate(), overlayContainerStyle: {backgroundColor: '#e58586'}}}
                     title={app.clinica}
                     subtitle={app.medico}
@@ -86,37 +103,11 @@ export default class UserSchedule extends Component {
     );
   }
 
-  ModalContent() {
-    const { modal } = this.state;
-
-    return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modal}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={{width: width, height: (height/2), backgroundColor: 'white', marginTop: (height/2)}}>
-          <View>
-            <Text>Hello World!</Text>
-
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!modal);
-              }}>
-              <Text>Hide Modal</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
-
   render() {
+    const { modal, app } = this.state;
     return (
       <View style={styles.container}>
-        {this.ModalContent()}
+        <ModalSchedule app={app} visible={modal} setVisible={() => this.setModalVisible(!modal, app)}/>
         <ScrollView contentContainerStyle={styles.viewBody}>
           {this.GetAppointmentsViews()}
         </ScrollView>
@@ -161,7 +152,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     width: '100%',
-    marginBottom: 15
+    marginBottom: 15,
+    elevation: 2
   },
   cardTitle: {
     paddingLeft: 20,
