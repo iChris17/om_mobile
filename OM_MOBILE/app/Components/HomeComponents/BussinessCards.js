@@ -3,7 +3,7 @@ import {View, StyleSheet, Text, Platform} from 'react-native';
 import {Card, Button, Image,SearchBar} from 'react-native-elements';
 const consultorios = [
   {
-    name: 'Consultorio de prueba',
+    name: 'Clinica Valle',
     addres: 'Calle Principal Altamira, Contiguo a Sevasa',
     city:"Managua, Nicaragua",
     logo: 'http://www.hospitalvivianpellas.com/wp-content/themes/vivianpellas-theme/assets/images/logo-hospital-vivian-pellas-2017-01@3x.png',
