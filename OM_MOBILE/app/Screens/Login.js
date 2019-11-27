@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { StyleSheet, 
-        View, 
-        AsyncStorage, 
+        View,
         Dimensions, 
         Text, 
         ActivityIndicator, 
-        StatusBar } from 'react-native';
+        StatusBar,
+        ScrollView,
+        KeyboardAvoidingView } from 'react-native';
 import { Button, Image, Icon } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
 import t from 'tcomb-form-native';
 import { LoginStruct, LoginOptions } from '../forms/Login';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Form = t.form.Form;
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+const width = Dimensions.get('screen').width;
+const height = Dimensions.get('screen').height;
 
 export default class Login extends Component {
     constructor() {
@@ -50,70 +52,76 @@ export default class Login extends Component {
         const { loginStruct, loginOptions, invalid } = this.state;
 
         return (
-            // <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
-                <View style={styles.container}>
-                    <StatusBar translucent={true} backgroundColor={'transparent'} />
-                    <View style={styles.loginBg}>
-                        <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
-                    </View>
-                    <View style={styles.loginHeader}>
-                        <Image resizeMode={'stretch'} style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
-                        <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
-                    </View>
-                    <View style={styles.loginForm}>
-                        { invalid ? (
-                            <Text style={styles.textForm}>USUARIO O CONTRASEÑA INVALIDOS</Text>
-                        ) : (
-                            null
-                        )}
-                        <Form 
-                            ref="loginForm"
-                            type= {loginStruct}
-                            options={loginOptions}
-                        />
-                        <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
-                    </View>
-                    <View style={styles.loginFooter}>
-                        <View style={{flexDirection: 'row', flexWrap:'wrap'}}>
-                            {(Platform.OS === "ios") ? (
-                                <Button
-                                    icon={
-                                        <Icon
-                                            name='apple'
-                                            type='font-awesome'
-                                            size={60}
-                                            color='#1B4079'
-                                        />
-                                    }
-                                    buttonStyle={styles.buttonFooter}
-                                />
-                            ) : (
-                                <Button
-                                    icon={
-                                        <Icon
-                                            name='google'
-                                            type='font-awesome'
-                                            size={60}
-                                            color='#1B4079'
-                                        />
-                                    }
-                                    buttonStyle={styles.buttonFooter}
-                                />
-                            )}
+            <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === "ios" ? "padding" : null} enabled>
+                <ScrollView contentContainerStyle={styles.viewBody}>
+                    <View style={styles.container}>
+                        <StatusBar translucent={true} backgroundColor={'transparent'} />
+                        <View style={styles.loginBg}>
+                            <SvgXml style={styles.svgShadow} width="100%" height="100%" xml={markerRendering} preserveAspectRatio="none"/>
                         </View>
-                        <Button
-                            title="¿Olvidó su contraseña?"
-                            type="clear"
-                            style={{position: 'absolute', marginTop: 0}}
-                        />
+                        <View style={styles.loginHeader}>
+                            <Image resizeMode={'stretch'} style={styles.loginImg} source={require('../../assets/logo.png')} PlaceholderContent={<ActivityIndicator/>}/>
+                            <Text style={styles.loginText}>INICIO DE SESIÓN</Text>
+                        </View>
+                        <View style={styles.loginForm}>
+                            { invalid ? (
+                                <Text style={styles.textForm}>USUARIO O CONTRASEÑA INVALIDOS</Text>
+                            ) : (
+                                null
+                            )}
+                            <Form 
+                                ref="loginForm"
+                                type= {loginStruct}
+                                options={loginOptions}
+                            />
+                            <Button buttonStyle={styles.button} title="INICIAR DE SESIÓN" onPress={this._signInAsync} />
+                        </View>
+                        <View style={styles.loginFooter}>
+                            <View style={{flexDirection: 'row', flexWrap:'wrap'}}>
+                                {(Platform.OS === "ios") ? (
+                                    <Button
+                                        icon={
+                                            <Icon
+                                                name='apple'
+                                                type='font-awesome'
+                                                size={60}
+                                                color='#1B4079'
+                                            />
+                                        }
+                                        buttonStyle={styles.buttonFooter}
+                                    />
+                                ) : (
+                                    <Button
+                                        icon={
+                                            <Icon
+                                                name='google'
+                                                type='font-awesome'
+                                                size={60}
+                                                color='#1B4079'
+                                            />
+                                        }
+                                        buttonStyle={styles.buttonFooter}
+                                    />
+                                )}
+                            </View>
+                            <Button
+                                title="¿Olvidó su contraseña?"
+                                type="clear"
+                                style={{position: 'absolute', marginTop: 0}}
+                            />
+                        </View>
                     </View>
-                </View>
-            // </KeyboardAvoidingView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    viewBody: {
+        marginRight: 20,
+        width: width
+      },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -156,7 +164,8 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     textForm: {
-        top: 10,
+        position: 'absolute',
+        top: 20,
         color: '#e80000',
         fontSize: 12,
         fontWeight: 'bold',
@@ -169,7 +178,8 @@ const styles = StyleSheet.create({
         height: 50,
         width: (width * 0.5),
         borderRadius: 60,
-        margin: 10
+        margin: 10,
+        elevation: 5
     },
     loginFooter: {
         alignItems: 'center',

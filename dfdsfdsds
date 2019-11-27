@@ -1,0 +1,128 @@
+[33mcommit 301a3c16e04078230c4215a5f54bf6a4e49c2446[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/bvenerio[m[33m, [m[1;31morigin/feature/cacevedo[m[33m, [m[1;31morigin/feature/bvenerio[m[33m, [m[1;32mfeature/cacevedo[m[33m)[m
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Sat Nov 16 15:12:59 2019 -0600
+
+    Subiendo para que baje el chele
+
+[33mcommit bac851ce1d058807130d07dddd2053a7fae51477[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Fri Nov 15 18:24:26 2019 -0600
+
+    2
+
+[33mcommit 2a86c11708876a692dddf821adf18b6eef546629[m
+Merge: 6886dec ade59ff
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Fri Nov 15 11:04:58 2019 -0600
+
+    Merge con el Chele
+
+[33mcommit 6886decf8a9480028e1520536ea04447df28ab3c[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Fri Nov 15 10:56:56 2019 -0600
+
+    Login con nuevos cambios
+
+[33mcommit ade59ffd90d733691bad86dccf3af33411419d84[m
+Author: Christopher Acevedo <cacevedo@thedataage.com>
+Date:   Fri Nov 15 10:47:11 2019 -0600
+
+    Fondo ios al screen cuenta
+
+[33mcommit e4a90ff1865f9dab8358da7ad96895bca6e07b6c[m
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Fri Nov 15 00:20:30 2019 -0600
+
+    Diseño de Login Finalizado
+
+[33mcommit ea2e3476269376a9fb876c51ef634283c17873fa[m
+Author: Christopher Acevedo <cacevedo@thedataage.com>
+Date:   Thu Nov 14 16:28:27 2019 -0600
+
+    Header de la seccion de Account
+
+[33mcommit cdd1ba1cce0f08a03fc3ac463a54c7c90206e54e[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Thu Nov 14 16:04:13 2019 -0600
+
+    Formulario de Login
+
+[33mcommit 960a451ab7fef4f9cb61d793932462eb580ee266[m
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Thu Nov 14 06:27:19 2019 -0600
+
+    Casi finalizando el login
+
+[33mcommit c265c2a3e1df9593a6d692e98f556ac19802c629[m
+Merge: 1cf085e bdbb95b
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Wed Nov 13 22:15:26 2019 -0600
+
+    Resolución de Conflicto
+
+[33mcommit 1cf085e4c256bd538a369dbc97e9982e65fb927b[m
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Wed Nov 13 22:07:22 2019 -0600
+
+    Cambios de Compilación
+
+[33mcommit 6502352bc053e248d88232a9e823217db90034fa[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Wed Nov 13 17:18:32 2019 -0600
+
+    Agregado SVG
+
+[33mcommit 1808fc9493978ba7101633e914f8200962553537[m
+Merge: 457cf08 6f64aca
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Wed Nov 13 07:24:35 2019 -0600
+
+    Merge branch 'feature/bvenerio' of bitbucket.org:medicalsystem2019/om_mobile into feature/bvenerio
+
+[33mcommit 457cf08eb2273d571c800328d074cbc82f99d82e[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Wed Nov 13 07:24:03 2019 -0600
+
+    Preparado para pull
+
+[33mcommit 6f64aca043b20943cf6e029e8b185c6412e4ead8[m
+Author: bily98 <bilyjv98.16@gmail.com>
+Date:   Tue Nov 12 23:29:59 2019 -0600
+
+    Actualización de Login
+
+[33mcommit bdbb95b7ec89bd83afe9424cf080f1fdf21303a6[m
+Author: iChris17 <acevedocris17@gmail.com>
+Date:   Tue Nov 12 20:33:18 2019 -0800
+
+    Mejorando estilos del tabbar
+
+[33mcommit e60516c4d12a6d4cafa1629bd99211c2b96437e4[m
+Author: Bily Joue Venerio Chavez <Bily.Venerio487@std.uni.edu.ni>
+Date:   Tue Nov 12 16:14:28 2019 -0600
+
+    Actualización login
+
+[33mcommit 520db194732f910d7bf7f538aa3df625df1c7826[m
+Author: Christopher Acevedo <cacevedo@thedataage.com>
+Date:   Tue Nov 12 11:33:41 2019 -0600
+
+    Estilos a la navegacion
+
+[33mcommit e6e7884b5476d83812b44e0fc710ca16e14726a7[m
+Author: cacevedo <cacevedo@thedataage.com>
+Date:   Sun Nov 10 22:11:28 2019 -0600
+
+    Navegacion principal
+
+[33mcommit ba6e252fabf99bfb48a2d7ae5c92dfb57e43d38a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: iChris17 <acevedocris17@gmail.com>
+Date:   Fri Nov 8 13:07:37 2019 -0800
+
+    Inicio del Proyecto
+
+[33mcommit b3faa1695c30a036939d507ae1810ab306dcb159[m
+Author: Christopher Acevedo Galo <acevedocris17@gmail.com>
+Date:   Mon Nov 4 04:15:52 2019 +0000
+
+    Initial commit
