@@ -4,29 +4,25 @@ import {Button, ButtonGroup, Icon} from 'react-native-elements';
 
 const btnContact = () => (
   <View>
-    <Icon name="phone" type="material-community" color="gray" />
-
-    <Text>Contacto</Text>
+    <Icon name="alert-circle-outline" type="material-community" color="gray" />
+    <Text>Info.</Text>
   </View>
 );
 const btnSchedule = () => (
   <View>
-    <Icon name="clock-outline" type="material-community" color="gray" />
-
-    <Text>Horario</Text>
+    <Icon name="account-card-details-outline" type="material-community" color="gray" />
+    <Text>Personal</Text>
   </View>
 );
 const btnSpec = () => (
   <View>
     <Icon name="hospital" type="material-community" color="gray" />
-
-    <Text>Especialidad</Text>
+    <Text>Servicios</Text>
   </View>
 );
 const btnAppoint = () => (
   <View>
     <Icon name="calendar-text-outline" type="material-community" color="gray" />
-
     <Text>Cita</Text>
   </View>
 );
@@ -35,13 +31,12 @@ export default class componentName extends Component {
   constructor() {
     super();
     this.state = {
-      selectedIndex: -1,
+      selectedIndex: 0,
     };
     this.updateIndex = this.updateIndex.bind(this);
   }
   updateIndex(selectedIndex) {
-    this.setState({selectedIndex});
-    console.log(selectedIndex)
+    this.setState({selectedIndex});   
   }
 
   render() {

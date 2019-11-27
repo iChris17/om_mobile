@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Platform} from 'react-native';
-import {Card, Button, Image,SearchBar} from 'react-native-elements';
+import {View, StyleSheet, Text} from 'react-native';
+import {Card, Button, Image} from 'react-native-elements';
 const consultorios = [
   {
     name: 'Clinica Valle',
@@ -30,8 +30,12 @@ const consultorios = [
 
 export default class BussinessComponent extends Component {
 
-onPressDetails=()=>{
-  this.props.goClinic(consultorios[0])
+  constructor(){
+    super()
+  }
+
+onPressDetails=selectedClinic=>{
+  this.props.goClinic(consultorios[selectedClinic])
 }
 
   render() {
@@ -57,7 +61,7 @@ onPressDetails=()=>{
                 key={i}
                   title="Ver detalles"
                   buttonStyle={styles.detailsButton}
-                  onPress={()=>{this.onPressDetails()}}
+                  onPress={()=>{this.onPressDetails(i)}}
                 />
               </Card>
             </View>

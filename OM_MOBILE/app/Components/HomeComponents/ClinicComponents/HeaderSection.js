@@ -11,7 +11,7 @@ export default class componentName extends Component {
           imageSrc={{uri: LogoUrl}}
           title={Name}
           imageContainerStyle={{width:"100%"}}
-          
+          imageProps={{resizeMode:'stretch'}}
         />
   <Text style={styles.subtitleStyles}>{City}</Text>
       </View>
