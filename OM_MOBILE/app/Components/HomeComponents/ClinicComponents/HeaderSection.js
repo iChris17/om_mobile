@@ -6,11 +6,11 @@ export default class componentName extends Component {
   render() {
     const {LogoUrl, Name, City} = this.props;
     return (
-      <View>
+      <View style={styles.viewBody}>
         <Tile
           imageSrc={{uri: LogoUrl}}
           title={Name}
-          imageContainerStyle={{width:"100%"}}
+          overlayContainerStyle={{backgroundColor:"white"}}
           imageProps={{resizeMode:'stretch'}}
         />
   <Text style={styles.subtitleStyles}>{City}</Text>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   subtitleStyles:{
 marginLeft:15,
 marginTop:-10,
-fontSize:18
+fontSize:18,
   },
   titleView:{
       borderWidth:1,
@@ -34,5 +34,8 @@ fontSize:18
       borderRightWidth:0,
       borderBottomWidth:0,
       borderColor:"gray"
+  },
+  viewBody:{
+    backgroundColor:"white"
   }
 });

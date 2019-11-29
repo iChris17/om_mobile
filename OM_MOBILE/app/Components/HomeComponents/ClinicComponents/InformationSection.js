@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Button, ButtonGroup, Icon} from 'react-native-elements';
+import MenuButtonGroup from './MenuButtonGruop/index'
 
 const btnContact = () => (
   <View>
@@ -56,6 +57,7 @@ export default class componentName extends Component {
           containerStyle={{height: 80}}
           selectedButtonStyle={{backgroundColor:"#e5e5ea"}}
         />
+        <MenuButtonGroup Option={selectedIndex}/>
       </View>
     );
   }
