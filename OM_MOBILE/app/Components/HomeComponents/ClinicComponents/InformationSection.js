@@ -66,7 +66,7 @@ export default class componentName extends Component {
 
 const styles = StyleSheet.create({
   viewBody: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
     

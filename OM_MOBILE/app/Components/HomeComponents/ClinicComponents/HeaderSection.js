@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 marginLeft:15,
 marginTop:-10,
 fontSize:18,
+marginBottom:5,
   },
   titleView:{
       borderWidth:1,
