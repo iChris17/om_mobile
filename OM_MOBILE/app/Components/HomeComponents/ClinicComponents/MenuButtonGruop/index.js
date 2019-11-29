@@ -7,20 +7,20 @@ import Appointment from './Appointment'
 
 export default class index extends Component {
   render() {
-    const {Option} = this.props;
+    const {Option, Address, Description} = this.props;
 
     switch (Option) {
       case 0:
         return (
-          <View>
-            <Information />
+          <View style={styles.viewBody}>
+            <Information Address={Address} Description={Description}/>
           </View>
         );
         break;
 
       case 1:
         return (
-          <View>
+          <View style={styles.viewBody}>
             <Personal />
           </View>
         );
@@ -28,7 +28,7 @@ export default class index extends Component {
 
       case 2:
         return (
-          <View>
+          <View style={styles.viewBody}>
             <Servicios />
           </View>
         );
@@ -36,7 +36,7 @@ export default class index extends Component {
 
       case 3:
         return (
-          <View>
+          <View style={styles.viewBody}>
             <Appointment />
           </View>
         );
@@ -44,3 +44,23 @@ export default class index extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  viewBody:{
+  marginLeft: 10,
+  marginRight: 10,
+  marginTop:10,
+  marginBottom:10,
+ backgroundColor:"white",
+ borderRadius: 10,
+    //borderWidth:1,
+        shadowRadius:2,
+        shadowOpacity:0.2,
+        shadowColor:"#48484a",
+        shadowOffset:{
+            width:3,
+            height:5
+        },
+    elevation: 4,
+}
+})
