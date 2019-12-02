@@ -3,6 +3,8 @@ import {StyleSheet, View, Text, Dimensions, ScrollView, TouchableHighlight, Moda
 import {Button, Icon, ListItem} from 'react-native-elements';
 import {Appointments} from '../variables/appointments';
 import ModalSchedule from '../Components/HomeComponents/ModalSchedule';
+import {Agenda, LocaleConfig} from 'react-native-calendars'
+import Moment from 'moment';
 
 const width = Dimensions.get('screen').width;
 const height = Dimensions.get('screen').height;
@@ -26,10 +28,6 @@ export default class UserSchedule extends Component {
   constructor(){
     super();
     this.state = {
-      appointments: {
-        detail: [],
-        months: []
-      },
       modal: false,
       app: {
         clinica: '',
@@ -39,134 +37,135 @@ export default class UserSchedule extends Component {
         objetivo: '',
         fecha: new Date(),
         estado: true
-      }
+      },
+      items: {}
     }
-  }
-
-  static navigationOptions = {
-    title: 'Agenda',
-    headerRight: <Button type="clear" icon={ <Icon name="clipboard-text" type='material-community' size={30} color="black" />}/>
-  };
-
-  componentDidMount() {
-    const months = monthNames.filter((x) => {
-      return Appointments.find(y => {
-        return new Date(y.fecha).getMonth() === x.number;
-      });
-    });
-
-    const dates = {
-      detail: Appointments,
-      months: months
-    };
-
-    this.setState({
-      appointments: dates
-    });
   }
 
   setModalVisible(visible, app) {
     this.setState({modal: visible, app: app});
   }
 
-  convertFecha(date) {
-    const newDate = new Date(date).toString();
-    console.log(newDate);
-    return newDate
-  }
-
-  GetAppointmentsViews() {
-    const { appointments } = this.state;
-    
-    return(
-      <View style={{paddingLeft: 15, paddingRight: 15}}>
-        {appointments.detail.map((app, i) => {
-          return(
-            <View style={styles.card}>
-              <View style={styles.cardTitle}>
-                <Text style={styles.title}>{appointments.months.filter(m => m.number === new Date(app.fecha).getMonth()).map(m => m.month)}</Text>
-              </View>
-              <View style={styles.cardBody}>
-                <TouchableHighlight style={styles.list} activeOpacity={0.9} onPress={() => this.setModalVisible(true, app)}>
-                  <ListItem
-                    key={i}
-                    leftAvatar={{title: new Date(app.fecha).getDate(), overlayContainerStyle: {backgroundColor: '#e58586'}}}
-                    title={app.clinica}
-                    subtitle={app.medico}
-                  />
-                </TouchableHighlight>
-              </View>
-            </View>
-          );
-        })}
-      </View>
-    );
-  }
-
   render() {
     const { modal, app } = this.state;
+
+    LocaleConfig.locales['es'] = {
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+      monthNamesShort: ['Ene.','Feb.','Mar','Abril','Mayo','Junio','Julio','Ago','Sept.','Oct.','Nov.','Dic.'],
+      dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sábado'],
+      dayNamesShort: ['Dom.','Lun.','Mar.','Mier.','Jue.','Vie.','Sab.'],
+      today: 'Aujourd\'hui'
+    };
+    LocaleConfig.defaultLocale = 'es';
+
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1}}>
+        <Agenda
+          items={this.state.items}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          selected={new Date().toLocaleDateString()}
+          renderItem={this.renderItem.bind(this)}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+          theme={{selectedDayBackgroundColor: '#e58586', dotColor: '#86BBD8'}}
+        />
         <ModalSchedule app={app} visible={modal} setVisible={() => this.setModalVisible(!modal, app)}/>
-        <ScrollView contentContainerStyle={styles.viewBody}>
-          {this.GetAppointmentsViews()}
-        </ScrollView>
       </View>
     );
+  }
+
+  loadItems(day) {
+    const {items} = this.state;
+    setTimeout(() => {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (!items[strTime]) {
+          items[strTime] = [];
+          
+          const appointments = Appointments.filter(app => {
+            const date = Moment(app.fecha).format('YYYY-MM-DD').toString();
+            return (date === strTime);
+          });
+
+          appointments.forEach(app => {
+            items[strTime].push(app);
+          });
+        }
+      }
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      this.setState({
+        items: newItems
+      });
+    }, 1000);
+    // console.log(`Load Items for ${day.year}-${day.month}`);
+  }
+
+  renderItem(item) {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.time}>{Moment(item.fecha).format('hh:mm A').toString()}</Text>
+        <Text style={styles.title}>{item.clinica}</Text>
+        <Text style={styles.subtitle}>{item.especialidad}</Text>
+        <Text style={styles.subtitle}>Sala {item.sala}</Text>
+        <Button type='clear' buttonStyle={styles.button} icon={
+          <Icon
+            name='cogs'
+            type='font-awesome'
+            color='#86BBD8'
+          />}
+          onPress={()=> this.setModalVisible(true, item)}
+        />
+      </View>
+    );
+  }
+
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}><Text>No hay eventos!</Text></View>
+    );
+  }
+
+  rowHasChanged(r1, r2) {
+    return r1.name !== r2.name;
+  }
+
+  timeToString(time) {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    width: width,
-    height: 70,
-    paddingBottom: 10,
-    backgroundColor: 'white'
-  },
-  headerNow: {
-    paddingLeft: 20,
-    width: '70%'
-  },
-  textNow: {
-    fontSize: 24,
-    color: '#000'
-  },
-  headerButton: {
-    width: '20%'
-  },
-  viewBody: {
-    marginRight: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    width: width
-  },
-  card: {
-    borderRadius: 10,
+  item: {
     backgroundColor: 'white',
-    width: '100%',
-    marginBottom: 15,
-    elevation: 2
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 17,
+    marginTop: 17,
+    elevation: 3
   },
-  cardTitle: {
-    paddingLeft: 20,
-    paddingTop: 15,
-    flex: 1
+  emptyDate: {
+    height: 15,
+    flex:1,
+    paddingTop: 30
+  },
+  time: {
+    marginBottom: 10
   },
   title: {
-    color: '#0089d4',
+    fontSize: 18,
+    marginBottom: 5
   },
-  cardBody: {
-    flex: 1
+  subtitle: {
+    fontSize: 16,
+    color: '#7e7e7e',
+    marginLeft: 10
   },
-  list: {
-    marginBottom: 10,
+  button: {
+    position: 'absolute',
+    top: -80,
+    right: 0
   }
 });

@@ -8,15 +8,12 @@ const height = Dimensions.get('screen').height;
 
 export default class ModalSchedule extends Component{
   constructor(props){
-      super(props);
+    super(props);
   }
 
-  setModalVisible(visible) {
-    this.props.visible = visible;
-  }
   render() {
     const { app, visible, setVisible } = this.props;
-    Moment.locale('es', {
+    Moment.updateLocale('es', {
     months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
     monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
     weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
@@ -29,66 +26,68 @@ export default class ModalSchedule extends Component{
         transparent={true}
         visible={visible}
         onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
+          Alert.alert('Modal has been closed.');
         }}
       >
-        <View style={styles.modal}>
-          <Button 
-            buttonStyle={styles.buttonCloseModal}
-            titleStyle={styles.modalTitleClose}
-            type="clear" 
-            title="&times;"
-            onPress={setVisible}
-          />
-          <View style={styles.modalHeader}>
-            <Text style={{fontSize: 24, fontWeight: 'bold'}}>{app.clinica}</Text>
-            <Text style={{fontSize: 16}}>{app.especialidad}</Text>
-          </View>
-          <View style={styles.modalBody}>
-            <ListItem 
-              key={1}
-              title='Fecha'
-              subtitle={Moment(app.fecha).format('ddd, DD [de] MMMM, YYYY')}
-              bottomDivider
-              containerStyle={styles.listMedicalData}
-              subtitleStyle={styles.subtitileMedicalList}
-              titleStyle={styles.titleMedicalList}
+        {/* <View style={{height: height, backgroundColor: 'rgba(0,0,0,0.5)'}}> */}
+          <View style={styles.modal}>
+            <Button 
+              buttonStyle={styles.buttonCloseModal}
+              titleStyle={styles.modalTitleClose}
+              type="clear" 
+              title="&times;"
+              onPress={setVisible}
             />
-            <ListItem 
-              key={2}
-              title='Hora'
-              subtitle={Moment(app.fecha).format('hh:mm A')}
-              bottomDivider
-              containerStyle={styles.listMedicalData}
-              subtitleStyle={styles.subtitileMedicalList}
-              titleStyle={styles.titleMedicalList}
-            />
-            <ListItem 
-              key={3}
-              title='Médico'
-              subtitle={app.medico}
-              bottomDivider
-              containerStyle={styles.listMedicalData}
-              subtitleStyle={styles.subtitileMedicalList}
-              titleStyle={styles.titleMedicalList}
-            />
-            <ListItem 
-              key={4}
-              title='Sala'
-              subtitle={app.sala}
-              bottomDivider
-              containerStyle={styles.listMedicalData}
-              subtitleStyle={styles.subtitileMedicalList}
-              titleStyle={styles.titleMedicalList}
-            />
-          </View>
-          <View style={styles.modalFooter}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#e58586'}]} title="Confirmar"/>
-              <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#86bbd8'}]} title="Cancelar"/>
+            <View style={styles.modalHeader}>
+              <Text style={{fontSize: 24, fontWeight: 'bold'}}>{app.clinica}</Text>
+              <Text style={{fontSize: 16}}>{app.especialidad}</Text>
+            </View>
+            <View style={styles.modalBody}>
+              <ListItem 
+                key={new Date(app.fecha).toDateString()}
+                title='Fecha'
+                subtitle={Moment(app.fecha).format('ddd, DD [de] MMMM, YYYY')}
+                bottomDivider
+                containerStyle={styles.listMedicalData}
+                subtitleStyle={styles.subtitileMedicalList}
+                titleStyle={styles.titleMedicalList}
+              />
+              <ListItem 
+                key={new Date(app.fecha).toTimeString()}
+                title='Hora'
+                subtitle={Moment(app.fecha).format('hh:mm A').toString()}
+                bottomDivider
+                containerStyle={styles.listMedicalData}
+                subtitleStyle={styles.subtitileMedicalList}
+                titleStyle={styles.titleMedicalList}
+              />
+              <ListItem 
+                key={app.medico.toString()}
+                title='Médico'
+                subtitle={app.medico}
+                bottomDivider
+                containerStyle={styles.listMedicalData}
+                subtitleStyle={styles.subtitileMedicalList}
+                titleStyle={styles.titleMedicalList}
+              />
+              <ListItem 
+                key={app.sala.toString()}
+                title='Sala'
+                subtitle={app.sala.toString()}
+                bottomDivider
+                containerStyle={styles.listMedicalData}
+                subtitleStyle={styles.subtitileMedicalList}
+                titleStyle={styles.titleMedicalList}
+              />
+            </View>
+            <View style={styles.modalFooter}>
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#e58586'}]} title="Confirmar"/>
+                <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#86bbd8'}]} title="Cancelar"/>
+              </View>
             </View>
           </View>
-        </View>
+        {/* </View> */}
       </Modal>
     );
   }
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     modal: {
       position: 'absolute',
       width: width,
-      height: ((height/2)),
+      height: ((height/3)*2),
       backgroundColor: 'white',
       bottom: 0,
       elevation: 10
