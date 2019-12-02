@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Dimensions, ScrollView, TouchableHighlight, Modal} from 'react-native';
 import {Button, Icon, ListItem} from 'react-native-elements';
 import {Appointments} from '../variables/appointments';
-import ModalSchedule from '../Components/HomeComponents/ModalSchedule';
+import ModalSchedule from '../Components/ScheduleComponent/ModalSchedule';
 import {Agenda, LocaleConfig} from 'react-native-calendars'
 import Moment from 'moment';
 

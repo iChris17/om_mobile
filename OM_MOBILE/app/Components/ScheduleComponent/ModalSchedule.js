@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Modal, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Modal, Dimensions, TouchableOpacity} from 'react-native';
 import {Button, ListItem} from 'react-native-elements';
 import Moment from 'moment';
 
@@ -29,15 +29,11 @@ export default class ModalSchedule extends Component{
           Alert.alert('Modal has been closed.');
         }}
       >
-        {/* <View style={{height: height, backgroundColor: 'rgba(0,0,0,0.5)'}}> */}
+        <View style={styles.container}>
+          <TouchableOpacity onPress={setVisible}>
+            <View style={{width: width, height: ((height/3)*1)}}></View>
+          </TouchableOpacity>
           <View style={styles.modal}>
-            <Button 
-              buttonStyle={styles.buttonCloseModal}
-              titleStyle={styles.modalTitleClose}
-              type="clear" 
-              title="&times;"
-              onPress={setVisible}
-            />
             <View style={styles.modalHeader}>
               <Text style={{fontSize: 24, fontWeight: 'bold'}}>{app.clinica}</Text>
               <Text style={{fontSize: 16}}>{app.especialidad}</Text>
@@ -87,20 +83,29 @@ export default class ModalSchedule extends Component{
               </View>
             </View>
           </View>
-        {/* </View> */}
+        </View>
       </Modal>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: width,
+    height: height
+  },
     modal: {
+      flex: 1,
       position: 'absolute',
       width: width,
       height: ((height/3)*2),
       backgroundColor: 'white',
       bottom: 0,
-      elevation: 10
+      elevation: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.5,
+      shadowRadius: 1,
     },
     modalHeader: {
       alignItems: 'center',
@@ -109,10 +114,12 @@ const styles = StyleSheet.create({
     },
     buttonCloseModal: {
       position: 'absolute',
+      top: 0,
       right: 10,
       borderRadius: 10,
       width: 40,
-      height: 40
+      height: 40,
+      zIndex: 10
     },
     modalTitleClose:{
       fontSize: 24
