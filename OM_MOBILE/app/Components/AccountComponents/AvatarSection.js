@@ -2,51 +2,68 @@ import {StyleSheet, View, Text} from 'react-native';
 import React, {Component} from 'react';
 import {Avatar, ListItem} from 'react-native-elements';
 
-let Name = 'Christopher Acevedo';
-let Mail = 'prueba@gmail.com ';
-let Age = '(20 Años) ';
-
-import MainComponent from '../../Screens/User_Account';
 export default class componentName extends Component {
-
-  goToEdit = () => {
-    this.props.goEditUser;
-  };
-
-  render() {
-      return (
-        <View style={styles.viewBody}>
-          <Text style={styles.text}>MI CUENTA</Text>
-          <ListItem
-            leftAvatar={
-              <Avatar
-                size="medium"
-                rounded
-                icon={{
-                  name: 'account-circle',
-                  type: 'material-community',
-                  size: 50,
-                }}
-              />
-            }
-            title={Name}
-            titleStyle={{fontWeight: 'bold', fontSize: 16, color: 'white'}}
-            subtitle={
-              <View>
-                <Text style={{color: 'white'}}>{Mail + Age}</Text>
-              </View>
-            }
-            chevron={{color: 'black'}}
-            containerStyle={styles.ProfileItem}
-            onPress={() => {
-              this.props.goEditUser();
-            }}
-          />
-        </View>
-      );
+  constructor(){
+    super()
+    this.state={
+      age:0,
+      email:"",
+      firstname:"",
+      lastname:""
     }
   }
+  goToEdit = (user) => {
+    this.props.goEditUser(user);
+  };
 
+  /*componentDidMount(){
+    const {age,email,firstname,lastname}= this.props.user
+    
+    this.setState({
+      age:age,
+      email:email,
+      firstname:firstname,
+      lastname:lastname
+    })
+  }*/
+
+  render() {
+    const {age,email,firstname,lastname}= this.props.user
+    //console.log('didmountavatr',this.props.user)
+    return (
+      <View style={styles.viewBody}>
+        <Text style={styles.text}>MI CUENTA</Text>
+        <ListItem
+          leftAvatar={
+            <Avatar
+              size="medium"
+              rounded
+              icon={{
+                name: 'account-circle',
+                type: 'material-community',
+                size: 50,
+              }}
+            />
+          }
+          title={firstname + ' ' + lastname}
+          titleStyle={{fontWeight: 'bold', fontSize: 16, color: 'white'}}
+          subtitle={
+            <View>
+              <Text style={{color: 'white'}}>
+                {email + ' (' + age + ' años)'}
+              </Text>
+            </View>
+          }
+          chevron={{color: 'black'}}
+          containerStyle={styles.ProfileItem}
+          onPress={() => {
+            this.props.goEditUser(this.props.user);
+          }}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   viewBody: {

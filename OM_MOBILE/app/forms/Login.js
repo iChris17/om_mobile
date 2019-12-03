@@ -24,7 +24,7 @@ stylesheet.textbox.normal.borderWidth = 3;
 
 export const LoginStruct = t.struct({
     email: formValidation.email,
-    password: t.String
+    password: formValidation.password
 });
 
 export const LoginOptions = {

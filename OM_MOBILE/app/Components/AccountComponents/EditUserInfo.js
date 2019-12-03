@@ -75,6 +75,8 @@ export default class EditUserInfo extends Component {
   };
 
   render() {
+    const user =  this.props.navigation.getParam('params')
+    console.log(user)
     return (
       <ScrollView contentContainerStyle={styles.viewBody}>
         <View style={styles.avatarStyle}>
@@ -90,11 +92,11 @@ export default class EditUserInfo extends Component {
         </View>
         <View>
           <Text style={styles.labelStyles}>Nombres</Text>
-          <Input placeholder="Digita tu nombre" />
+          <Input placeholder={user.firstname} />
           <Text style={styles.labelStyles}>Apellidos</Text>
-          <Input placeholder="Digita tus apellidos" />
+          <Input placeholder={user.lastname}/>
           <Text style={styles.labelStyles}>Email</Text>
-          <Input placeholder="mail@addres.com" />
+          <Input placeholder={user.email} />
           <Text style={styles.labelStyles}>Contraseña</Text>
           <Input placeholder="DIgita tu contraseña" />
           <Text style={styles.labelStyles}>Fecha de Nacimiento</Text>

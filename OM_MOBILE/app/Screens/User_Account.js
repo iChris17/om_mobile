@@ -21,8 +21,8 @@ export default class UserAccount extends Component {
     this.props.navigation.navigate('Auth');
   };
 
-  goEditUser = () => {
-    this.props.navigation.navigate('EditUserInfo')
+  goEditUser = (params=null) => {
+    this.props.navigation.navigate('EditUserInfo',{params})
   };
 
   render() {
