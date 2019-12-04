@@ -10,11 +10,12 @@ import React, {Component} from 'react';
 import {Avatar, Input, Button} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 import {PERMISSIONS, request} from 'react-native-permissions';
+import AsyncStorage from '@react-native-community/async-storage';
 export default class EditUserInfo extends Component {
   constructor() {
     super();
     this.state = {
-      sourceAvatar: '',
+      vlImage: '',
     };
   }
 
@@ -63,28 +64,35 @@ export default class EditUserInfo extends Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        this.setState({
-          sourceAvatar: response.uri,
-        });
+        this.props.navigation.getParam('params').vlImage=response.data 
+       this.setState({vlImage:response.data})
       }
     });
   }
 
-  onPressConfirmEdit = () => {
-    this.props.navigation.goBack();
+  onPressConfirmEdit = async () => {
+    //await AsyncStorage.removeItem('ReloadUser').catch(err=>{})
+    this.props.navigation.navigate('Home');
   };
+
+componentDidMount(){
+  const user =  this.props.navigation.getParam('params')
+    const vlImage=user.vlImage
+    this.setState({vlImage})
+}
 
   render() {
     const user =  this.props.navigation.getParam('params')
-    console.log(user)
+    const {vlImage} = this.state
     return (
       <ScrollView contentContainerStyle={styles.viewBody}>
         <View style={styles.avatarStyle}>
           <Avatar
             size="large"
             rounded
-            source={{uri: this.state.sourceAvatar}}
+            source={{uri:`data:image/png;base64,${vlImage}`}}
             showEditButton
+            imageProps={{resizeMode:"cover"}}
             onEditPress={() => {
               this.changeUserImage();
             }}

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-
 import AvatarSection from './AvatarSection';
 import MedicalData from './MedicalData';
 
@@ -15,6 +14,12 @@ export default class AccountMainComponent extends Component {
   }
 
   async componentDidMount() {
+    await this.CargarDatos();
+    //await AsyncStorage.setItem('ReloadUser','NO').catch(err=>{})
+    console.log('index')
+  }
+
+  async CargarDatos() {
     let email;
     await AsyncStorage.getItem('email')
       .then(res => {
@@ -31,27 +36,25 @@ export default class AccountMainComponent extends Component {
       'http://192.168.252.135:57033/api/pacients/' + email + '',
     );
 
-
-    let user
+    let user;
     await promiseUser
       .then(res => {
-        user = res.data;      
+        user = res.data;
       })
       .catch(err => {
         console.log(err);
       });
 
-      this.setState({user})
-    console.log('willupdate',this.state);
+    this.setState({user});
   }
 
   render() {
     let {user} = this.state;
-    console.log('render',user)
+
     return (
       <View style={styles.viewBody}>
-        <AvatarSection goEditUser={this.props.goEditUser} user={user} />
-        <MedicalData user={user} /> 
+        <AvatarSection goEditUser={this.props.goEditUser} user={user} reload={this.CargarDatos}/>
+        <MedicalData user={user} />
       </View>
     );
   }

@@ -1,6 +1,7 @@
 import {StyleSheet, View, Text} from 'react-native';
 import React, {Component} from 'react';
 import {Avatar, ListItem} from 'react-native-elements';
+import {decode, encode} from 'base-64'
 
 export default class componentName extends Component {
   constructor(){
@@ -28,8 +29,7 @@ export default class componentName extends Component {
   }*/
 
   render() {
-    const {age,email,firstname,lastname}= this.props.user
-    //console.log('didmountavatr',this.props.user)
+    const {age,email,firstname,lastname,vlImage}= this.props.user
     return (
       <View style={styles.viewBody}>
         <Text style={styles.text}>MI CUENTA</Text>
@@ -38,11 +38,7 @@ export default class componentName extends Component {
             <Avatar
               size="medium"
               rounded
-              icon={{
-                name: 'account-circle',
-                type: 'material-community',
-                size: 50,
-              }}
+              source={{uri:`data:image/png;base64,${vlImage}`}}
             />
           }
           title={firstname + ' ' + lastname}
