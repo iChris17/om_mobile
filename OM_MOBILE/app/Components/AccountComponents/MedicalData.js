@@ -5,38 +5,50 @@ import {ListItem, Button} from 'react-native-elements';
 export default class MedicalData extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      vlHeight:null,vlWeight:null,tpBlood:null,inDiscapacity:null
+    }
   }
 
   logOut = () => {
     console.log('cerrando');
-    console.log(this.props);
+    //console.log(this.props);
     // this.props.navigation.navigate('Login')
   };
+
+/*componentDidMount(){
+  const {vlHeight,vlWeight,tpBlood,inDiscapacity}=this.props.medfile
+  this.setState({
+    vlHeight:vlHeight,vlWeight:vlWeight,tpBlood:tpBlood,inDiscapacity:inDiscapacity
+  })
+}*/
+
   render() {
+    const {vlHeight,vlWeight,tpBlood,inDiscapacity,gender,vlBirthdate}=this.props.user
     const list = [
       {
         name: 'Fecha de Nacimiento',
-        subtitle: '17/07/1998',
+        subtitle: vlBirthdate,
       },
       {
         name: 'Sexo',
-        subtitle: 'Masculino',
+        subtitle: gender,
       },
       {
         name: 'Peso',
-        subtitle: '84 kg',
+        subtitle: vlWeight+" kg",
       },
       {
         name: 'Altura',
-        subtitle: '1.7 mts',
+        subtitle: vlHeight+" mts",
       },
       {
         name: 'Grupo Sanguíneo',
-        subtitle: 'Sin Definir',
+        subtitle: tpBlood,
       },
       {
         name: 'Silla de Ruedas',
-        subtitle: 'No',
+        subtitle: inDiscapacity,
       },
       {
         name: 'Enfermedades Crónicas',

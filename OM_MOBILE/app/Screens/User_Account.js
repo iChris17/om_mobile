@@ -6,13 +6,12 @@ import {Button} from 'react-native-elements';
 import MainAccountComponent from '../Components/AccountComponents/index';
 
 const Dim = Dimensions.get('screen');
-import EditUserInfo from '../Components/AccountComponents/EditUserInfo';
 
 export default class UserAccount extends Component {
   constructor() {
     super();
     this.state = {
-      EditUser: false,
+      reload: false,
     };
   }
 
@@ -21,9 +20,15 @@ export default class UserAccount extends Component {
     this.props.navigation.navigate('Auth');
   };
 
-  goEditUser = () => {
-    this.props.navigation.navigate('EditUserInfo')
+  goEditUser = (params=null) => {
+    this.props.navigation.navigate('EditUserInfo',{params,onSelect:this.onSelect})
   };
+
+  onSelect =(reload)=>{
+    this.setState({reload})
+  }
+
+
 
   render() {
       return (

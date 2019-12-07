@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Button, ButtonGroup, Icon} from 'react-native-elements';
+import MenuButtonGroup from './MenuButtonGruop/index'
 
 const btnContact = () => (
   <View>
@@ -47,15 +48,17 @@ export default class componentName extends Component {
       {element: btnSpec},
       {element: btnAppoint},
     ];
+    const {Address,Description,Phone} = this.props
     return (
       <View style={styles.viewBody}>
         <ButtonGroup
           onPress={this.updateIndex}
           selectedIndex={selectedIndex}
           buttons={buttons}
-          containerStyle={{height: 80}}
+          containerStyle={{height: 80, borderRadius:10}}
           selectedButtonStyle={{backgroundColor:"#e5e5ea"}}
         />
+        <MenuButtonGroup Option={selectedIndex} Address={Address} Description={Description} Phone={Phone}/>
       </View>
     );
   }
@@ -63,7 +66,7 @@ export default class componentName extends Component {
 
 const styles = StyleSheet.create({
   viewBody: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 5,
     marginRight: 5,
     
