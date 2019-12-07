@@ -21,12 +21,16 @@ export default class UserAccount extends Component {
   };
 
   goEditUser = (params=null) => {
-    this.props.navigation.navigate('EditUserInfo',{params})
+    this.props.navigation.navigate('EditUserInfo',{params,onSelect:this.onSelect})
   };
+
+  onSelect =(reload)=>{
+    this.setState({reload})
+  }
+
 
 
   render() {
-    
       return (
         <ScrollView style={styles.viewBody}>
           <MainAccountComponent goEditUser={this.goEditUser} />

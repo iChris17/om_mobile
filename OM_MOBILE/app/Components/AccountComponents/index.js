@@ -5,6 +5,7 @@ import axios from 'axios';
 import AvatarSection from './AvatarSection';
 import MedicalData from './MedicalData';
 
+
 export default class AccountMainComponent extends Component {
   constructor() {
     super();
@@ -15,11 +16,11 @@ export default class AccountMainComponent extends Component {
 
   async componentDidMount() {
     await this.CargarDatos();
-    //await AsyncStorage.setItem('ReloadUser','NO').catch(err=>{})
-    console.log('index')
+    console.log('didmount')
   }
 
   async CargarDatos() {
+    
     let email;
     await AsyncStorage.getItem('email')
       .then(res => {
@@ -33,7 +34,7 @@ export default class AccountMainComponent extends Component {
       })
       .catch(err => {});
     let promiseUser = axios.get(
-      'http://192.168.252.135:57033/api/pacients/' + email + '',
+      'http://192.168.1.21:57033/api/pacients/' + email + '',
     );
 
     let user;
@@ -46,14 +47,15 @@ export default class AccountMainComponent extends Component {
       });
 
     this.setState({user});
+    
   }
 
   render() {
     let {user} = this.state;
-
+    console.log('render index')
     return (
       <View style={styles.viewBody}>
-        <AvatarSection goEditUser={this.props.goEditUser} user={user} reload={this.CargarDatos}/>
+        <AvatarSection goEditUser={this.props.goEditUser} user={user}/>
         <MedicalData user={user} />
       </View>
     );

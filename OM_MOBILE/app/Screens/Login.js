@@ -39,7 +39,7 @@ export default class Login extends Component {
       const pass=validate.password
       let id 
       let promise = axios.get(
-        'http://192.168.252.135:57033/api/pacients/' + validate.email + '',
+        'http://192.168.1.21:57033/api/pacients/' + validate.email + '',
       );
 
       await promise

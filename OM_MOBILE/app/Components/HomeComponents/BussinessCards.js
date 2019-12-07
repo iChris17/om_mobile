@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text,ActivityIndicator} from 'react-native';
 import {Card, Button, Image} from 'react-native-elements';
+import axios from 'axios'
 const consultorios = [
   {
     name: 'Laboratorio Clínico Inmaculada Concepción',
@@ -33,33 +34,50 @@ export default class BussinessComponent extends Component {
 
   constructor(){
     super()
+    this.state={
+      clinics:[]
+    }
   }
 
 onPressDetails=selectedClinic=>{
-  this.props.goClinic(consultorios[selectedClinic])
+  const {clinics} = this.state
+  this.props.goClinic(clinics[selectedClinic])
+}
+
+async componentDidMount(){
+  await axios.get('http://192.168.1.21:57033/api/clinics',)
+  .then(res=>{
+    //console.log(res.data)
+    const clinics = res.data
+    this.setState({clinics})
+  }).catch(e=>{
+    console.log(e)
+  })
 }
 
   render() {
+    const {clinics}=this.state
     return (
       <View>
         
-        {consultorios.map((u, i) => {
+        {clinics.map((u, i) => {
           return (
-            <View key={i}>
+            <View key={u.id}>
               <Card
-                title={u.name}
-                key={i}
+                title={u.nbClinic}
+                key={u.id}
                 titleStyle={styles.headerStyle}
                 containerStyle={styles.cardStyle}>
                 <Image
                   style={styles.logoStyle}
                   resizeMode="contain"
-                  source={{uri: u.logo}}
+                  source={{uri: `data:image/jpeg;base64,${u.vlImageLg}`}} 
+                  PlaceholderContent={<ActivityIndicator/>}
                 />
-                <Text style={styles.descriptionStyle}>{u.description}</Text>
-                <Text style={styles.descriptionStyle}>{"Direccion: "+u.addres}</Text>
+                <Text style={styles.descriptionStyle}>{u.vlDescripcion}</Text>
+                <Text style={styles.descriptionStyle}>{"Direccion: "+u.vlAddress}</Text>
                 <Button
-                key={i}
+                key={u.id}
                   title="Ver detalles"
                   buttonStyle={styles.detailsButton}
                   onPress={()=>{this.onPressDetails(i)}}
@@ -84,7 +102,7 @@ const styles = StyleSheet.create({
     color: '#2c2c2e',
   },
   descriptionStyle: {
-    textAlign: 'left',
+    textAlign: 'justify',
     marginTop: 5,
     marginBottom: 0,
     fontSize: 16,

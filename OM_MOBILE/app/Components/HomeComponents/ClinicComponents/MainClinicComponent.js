@@ -11,8 +11,8 @@ export default class componentName extends Component {
     return (
       <ScrollView contentContainerStyle={styles.viewBody}>
         <View >
-         <Header LogoUrl={params.logo} Name={params.name} City={params.city} />
-         <Information Address={params.addres} Description={params.description}/>
+         <Header LogoUrl={params.vlImageSm} Name={params.nbClinic} City={params.vlCity} />
+         <Information Address={params.vlAddress} Description={params.vlDescripcion} Phone={params.vlPhone}/>
          </View>
       </ScrollView>
     );

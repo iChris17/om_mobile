@@ -8,7 +8,7 @@ export default class componentName extends Component {
     return (
       <View style={styles.viewBody}>
         <Tile
-          imageSrc={{uri: LogoUrl}}
+          imageSrc={{uri: `data:image/jpeg;base64,${LogoUrl}`}}
           title={Name}
           overlayContainerStyle={{backgroundColor:"white"}}
           imageProps={{resizeMode:'stretch'}}

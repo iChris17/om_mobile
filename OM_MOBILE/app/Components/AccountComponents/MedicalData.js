@@ -12,7 +12,7 @@ export default class MedicalData extends Component {
 
   logOut = () => {
     console.log('cerrando');
-    console.log(this.props);
+    //console.log(this.props);
     // this.props.navigation.navigate('Login')
   };
 

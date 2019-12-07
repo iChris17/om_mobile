@@ -1,7 +1,6 @@
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text,ActivityIndicator} from 'react-native';
 import React, {Component} from 'react';
 import {Avatar, ListItem} from 'react-native-elements';
-import {decode, encode} from 'base-64'
 
 export default class componentName extends Component {
   constructor(){
@@ -14,7 +13,7 @@ export default class componentName extends Component {
     }
   }
   goToEdit = (user) => {
-    this.props.goEditUser(user);
+    this.props.goEditUser({user});
   };
 
   /*componentDidMount(){
@@ -36,7 +35,7 @@ export default class componentName extends Component {
         <ListItem
           leftAvatar={
             <Avatar
-              size="medium"
+              size="large"
               rounded
               source={{uri:`data:image/png;base64,${vlImage}`}}
             />
