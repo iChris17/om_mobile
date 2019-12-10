@@ -8,6 +8,7 @@ import {
   StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import {Button, Image, Icon} from 'react-native-elements';
 import {SvgXml} from 'react-native-svg';
@@ -15,6 +16,8 @@ import t from 'tcomb-form-native';
 import {LoginStruct, LoginOptions} from '../forms/Login';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Form = t.form.Form;
 const width = Dimensions.get('screen').width;
@@ -28,7 +31,41 @@ export default class Login extends Component {
       loginOptions: LoginOptions,
       invalid: false,
       logOut: false,
+      date: new Date('2020-06-12T14:42:42'),
+      mode: 'date',
+      show: false
     };
+  }
+
+  componentDidMount() {
+    const email = AsyncStorage.getItem('email');
+    const IdUser = AsyncStorage.getItem('IdUser');
+
+    this.props.navigation.navigate((email && IdUser) ? 'App' : 'Auth');
+  }
+
+  setDate = (event, date) => {S
+    date = date || this.state.date;
+
+    this.setState({
+      show: Platform.OS === 'ios' ? true : false,
+      date,
+    });
+  }
+
+  show = mode => {
+    this.setState({
+      show: true,
+      mode,
+    });
+  }
+
+  datepicker = () => {
+    this.show('date');
+  }
+
+  timepicker = () => {
+    this.show('time');
   }
 
   _signInAsync = async () => {
@@ -39,7 +76,7 @@ export default class Login extends Component {
       const pass=validate.password
       let id 
       let promise = axios.get(
-        'http://192.168.1.21:57033/api/pacients/' + validate.email + '',
+        'http://192.168.1.10:57033/api/pacients/' + validate.email + '',
       );
 
       await promise
@@ -52,6 +89,7 @@ export default class Login extends Component {
           }
         })
         .catch(err => {
+          console.log(promise);
           console.log(err);
         });
 
@@ -60,7 +98,6 @@ export default class Login extends Component {
         this.setState({invalid: false});
         await AsyncStorage.setItem('email', email).catch(err=>{});
         await AsyncStorage.setItem('IdUser', id.toString()).catch(err=>{});
-        console.log('login hecho'); 
         this.props.navigation.navigate('App');
       }
     } else {
@@ -78,7 +115,7 @@ export default class Login extends Component {
 
   render() {
     const {loginStruct, loginOptions, invalid} = this.state;
-
+    const { show, date, mode } = this.state;
     return (
       <KeyboardAvoidingView
         style={{flex: 1}}
@@ -156,6 +193,23 @@ export default class Login extends Component {
         </ScrollView>
       </KeyboardAvoidingView>
     );
+
+    // return(
+    //   <View>
+    //     <View>
+    //       <Button onPress={this.datepicker} title="Show date picker!" />
+    //     </View>
+    //     <View>
+    //       <Button onPress={this.timepicker} title="Show time picker!" />
+    //     </View>
+    //     { show && <DateTimePicker value={date}
+    //                 mode={mode}
+    //                 is24Hour={true}
+    //                 display="default"
+    //                 onChange={this.setDate} />
+    //     }
+    //   </View>
+    // );
   }
 }
 
