@@ -37,35 +37,11 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    const email = AsyncStorage.getItem('email');
-    const IdUser = AsyncStorage.getItem('IdUser');
+  componentDidMount = async () => {
+    const email = await AsyncStorage.getItem('email');
+    const IdUser = await AsyncStorage.getItem('IdUser');
 
-    this.props.navigation.navigate((email && IdUser) ? 'App' : 'Auth');
-  }
-
-  setDate = (event, date) => {S
-    date = date || this.state.date;
-
-    this.setState({
-      show: Platform.OS === 'ios' ? true : false,
-      date,
-    });
-  }
-
-  show = mode => {
-    this.setState({
-      show: true,
-      mode,
-    });
-  }
-
-  datepicker = () => {
-    this.show('date');
-  }
-
-  timepicker = () => {
-    this.show('time');
+    this.props.navigation.navigate(((email !== null) && (IdUser !== null)) ? 'App' : 'Auth');
   }
 
   _signInAsync = async () => {
@@ -73,7 +49,7 @@ export default class Login extends Component {
     let statusUser = false;
     if (validate) {
       const email = validate.email
-      const pass=validate.password
+      const pass = validate.password
       let id 
       let promise = axios.get(
         'http://192.168.1.10:57033/api/pacients/' + validate.email + '',
@@ -82,6 +58,7 @@ export default class Login extends Component {
       await promise
         .then(res => {
           const user = res.data;
+          console.log(user);
           if (user.email === email && user.vlPassword === pass) {
             statusUser = true;
             id=user.id
@@ -96,8 +73,13 @@ export default class Login extends Component {
       if (statusUser) {
         
         this.setState({invalid: false});
-        await AsyncStorage.setItem('email', email).catch(err=>{});
-        await AsyncStorage.setItem('IdUser', id.toString()).catch(err=>{});
+
+        try {
+          await AsyncStorage.setItem('email', email);
+          await AsyncStorage.setItem('IdUser', id.toString());
+        } catch (e) {
+          // saving error
+        }
         this.props.navigation.navigate('App');
       }
     } else {
@@ -193,23 +175,6 @@ export default class Login extends Component {
         </ScrollView>
       </KeyboardAvoidingView>
     );
-
-    // return(
-    //   <View>
-    //     <View>
-    //       <Button onPress={this.datepicker} title="Show date picker!" />
-    //     </View>
-    //     <View>
-    //       <Button onPress={this.timepicker} title="Show time picker!" />
-    //     </View>
-    //     { show && <DateTimePicker value={date}
-    //                 mode={mode}
-    //                 is24Hour={true}
-    //                 display="default"
-    //                 onChange={this.setDate} />
-    //     }
-    //   </View>
-    // );
   }
 }
 
