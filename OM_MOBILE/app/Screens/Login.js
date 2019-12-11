@@ -8,6 +8,7 @@ import {
   StatusBar,
   ScrollView,
   KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import {Button, Image, Icon} from 'react-native-elements';
 import {SvgXml} from 'react-native-svg';
@@ -15,6 +16,8 @@ import t from 'tcomb-form-native';
 import {LoginStruct, LoginOptions} from '../forms/Login';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Form = t.form.Form;
 const width = Dimensions.get('screen').width;
@@ -28,7 +31,17 @@ export default class Login extends Component {
       loginOptions: LoginOptions,
       invalid: false,
       logOut: false,
+      date: new Date('2020-06-12T14:42:42'),
+      mode: 'date',
+      show: false
     };
+  }
+
+  componentDidMount = async () => {
+    const email = await AsyncStorage.getItem('email');
+    const IdUser = await AsyncStorage.getItem('IdUser');
+
+    this.props.navigation.navigate(((email !== null) && (IdUser !== null)) ? 'App' : 'Auth');
   }
 
   _signInAsync = async () => {
@@ -36,15 +49,16 @@ export default class Login extends Component {
     let statusUser = false;
     if (validate) {
       const email = validate.email
-      const pass=validate.password
+      const pass = validate.password
       let id 
       let promise = axios.get(
-        'http://192.168.1.21:57033/api/pacients/' + validate.email + '',
+        'http://192.168.1.10:57033/api/pacients/' + validate.email + '',
       );
 
       await promise
         .then(res => {
           const user = res.data;
+          console.log(user);
           if (user.email === email && user.vlPassword === pass) {
             statusUser = true;
             id=user.id
@@ -52,15 +66,20 @@ export default class Login extends Component {
           }
         })
         .catch(err => {
+          console.log(promise);
           console.log(err);
         });
 
       if (statusUser) {
         
         this.setState({invalid: false});
-        await AsyncStorage.setItem('email', email).catch(err=>{});
-        await AsyncStorage.setItem('IdUser', id.toString()).catch(err=>{});
-        console.log('login hecho'); 
+
+        try {
+          await AsyncStorage.setItem('email', email);
+          await AsyncStorage.setItem('IdUser', id.toString());
+        } catch (e) {
+          // saving error
+        }
         this.props.navigation.navigate('App');
       }
     } else {
@@ -78,7 +97,7 @@ export default class Login extends Component {
 
   render() {
     const {loginStruct, loginOptions, invalid} = this.state;
-
+    const { show, date, mode } = this.state;
     return (
       <KeyboardAvoidingView
         style={{flex: 1}}

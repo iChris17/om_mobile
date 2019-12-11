@@ -18,7 +18,7 @@ onPressDetails=selectedClinic=>{
 }
 
 async componentDidMount(){
-  await axios.get('http://192.168.1.21:57033/api/clinics',)
+  await axios.get('http://192.168.1.10:57033/api/clinics',)
   .then(res=>{
     //console.log(res.data)
     const clinics = res.data
