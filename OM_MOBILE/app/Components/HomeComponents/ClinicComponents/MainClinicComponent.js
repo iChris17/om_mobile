@@ -12,7 +12,7 @@ export default class componentName extends Component {
       <ScrollView contentContainerStyle={styles.viewBody}>
         <View >
          <Header LogoUrl={params.vlImageSm} Name={params.nbClinic} City={params.vlCity} />
-         <Information Address={params.vlAddress} Description={params.vlDescripcion} Phone={params.vlPhone}/>
+         <Information Clinic={params}/>
          </View>
       </ScrollView>
     );

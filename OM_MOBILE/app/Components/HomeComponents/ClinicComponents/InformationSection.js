@@ -48,7 +48,7 @@ export default class componentName extends Component {
       {element: btnSpec},
       {element: btnAppoint},
     ];
-    const {Address,Description,Phone} = this.props
+    const {Clinic} = this.props
     return (
       <View style={styles.viewBody}>
         <ButtonGroup
@@ -58,7 +58,7 @@ export default class componentName extends Component {
           containerStyle={{height: 80, borderRadius:10}}
           selectedButtonStyle={{backgroundColor:"#e5e5ea"}}
         />
-        <MenuButtonGroup Option={selectedIndex} Address={Address} Description={Description} Phone={Phone}/>
+        <MenuButtonGroup Option={selectedIndex} Clinic={Clinic}/>
       </View>
     );
   }
@@ -75,8 +75,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    // marginLeft:20,
-    // marginRight:20
-    //width:"80%"
   },
 });

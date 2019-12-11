@@ -7,13 +7,13 @@ import Appointment from './Appointment'
 
 export default class index extends Component {
   render() {
-    const {Option, Address, Description, Phone} = this.props;
+    const {Clinic,Option} = this.props;
 
     switch (Option) {
       case 0:
         return (
           <View style={styles.viewBody}>
-            <Information Address={Address} Description={Description} Phone={Phone}/>
+            <Information Address={Clinic.vlAddress} Description={Clinic.vlDescripcion} Phone={Clinic.vlPhone} Schedule={Clinic.clinicSchedule}/>
           </View>
         );
         break;
@@ -29,7 +29,7 @@ export default class index extends Component {
       case 2:
         return (
           <View style={styles.viewBody}>
-            <Servicios />
+            <Servicios idClinic={Clinic.idRegistered}/>
           </View>
         );
         break;

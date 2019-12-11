@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 
 export default class Information extends Component {
   render() {
-    const {Address, Description,Phone} = this.props;
+    const {Address, Description,Phone,Schedule} = this.props;
     return (
       <View style={styles.viewBody}>
         <Text style={styles.subtitleStyles}>Descripción</Text>
@@ -12,6 +12,12 @@ export default class Information extends Component {
         <Text style={styles.contentStyles}>{Address}</Text>
         <Text style={styles.subtitleStyles}>Contacto</Text>
         <Text style={styles.contentStyles}>{"Tel: "+Phone}</Text>
+        <Text style={styles.subtitleStyles}>Horario</Text>
+        {Schedule.map((u, i) => {
+          return (
+        <Text key={i} style={styles.contentStyles}>{u.vlDays+" : "+u.vlHours}</Text>
+          );
+      })}
       </View>
     );
   }

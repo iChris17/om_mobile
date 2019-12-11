@@ -2,33 +2,6 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text,ActivityIndicator} from 'react-native';
 import {Card, Button, Image} from 'react-native-elements';
 import axios from 'axios'
-const consultorios = [
-  {
-    name: 'Laboratorio Clínico Inmaculada Concepción',
-    addres: 'C.C Linda Vista, Contiguo a RadioShack',
-    city:"Managua, Nicaragua",
-    logo: 'https://static.wixstatic.com/media/7a16a5_db2550a94c684b768b1e5d212fed5ce3~mv2.jpg',
-    description:
-      'Clinica especializada en exámenes de laboratorio, con la última tecnología en equipos y la mejor atención'
-  },
-  {
-    name: 'Clinica Vivian Pellas',
-    addres: 'Calle Principal Altamira, Contiguo a Sevasa',
-    city:"Managua, Nicaragua",
-    logo: 'http://www.hospitalvivianpellas.com/wp-content/themes/vivianpellas-theme/assets/images/logo-hospital-vivian-pellas-2017-01@3x.png',
-    description:
-      'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
-  },
-  {
-    name: 'CLinica Valle',
-    addres: 'Calle Principal Altamira, Contiguo a Sevasa',
-    city:"Managua, Nicaragua",
-    logo: 'https://clinicavalle.com/wp-content/themes/clinicavalle/assets/img/logo.png',
-    description:
-      'Clinica especializada de prueba con el objetivo de visualizar el catalogo en la pantalla. Bla,bla,bla,bla,bla,bla',
-  }, 
- 
-];
 
 export default class BussinessComponent extends Component {
 
