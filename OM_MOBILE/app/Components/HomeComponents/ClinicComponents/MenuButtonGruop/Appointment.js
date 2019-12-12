@@ -57,7 +57,7 @@ export default class Appointment extends Component {
 
         const obj = {
             id: 0,
-            idClinic: Clinic,
+            idClinic: Clinic.idRegistered,
             idSpeciality: specialiy,
             vlDate: date,
             vlTime: time,
@@ -69,10 +69,10 @@ export default class Appointment extends Component {
             usUpdated: ''
         }
 
-        await axios.post('http://192.168.1.10:57033/api/AppointmentRequests', obj)
+        await axios.post(config.apiAddress+'/api/AppointmentRequests', obj)
             .then((res) => {
                 alert('Su solicitud ha sido enviada')
-            }).catch((err) => {console.log(err)})
+            }).catch((err) => {console.log(err,obj)})
     }
 
     render() {

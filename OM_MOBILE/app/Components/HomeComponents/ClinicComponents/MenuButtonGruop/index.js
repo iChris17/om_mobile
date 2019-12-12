@@ -38,7 +38,7 @@ export default class index extends Component {
       case 3:
         return (
           <View style={styles.viewBody}>
-            <Appointment Clinic={Clinic} Especialidades={Especialidades}/>
+            <Appointment Clinic={Clinic} Especialidades={Specialties}/>
           </View>
         );
         break;

@@ -6,6 +6,7 @@ import ModalSchedule from '../Components/ScheduleComponent/ModalSchedule';
 import {Agenda, LocaleConfig} from 'react-native-calendars'
 import Moment from 'moment';
 import axios from 'axios';
+import config from '../config/API_CONNECTION'
 
 export default class UserSchedule extends Component {
   constructor(){
@@ -30,7 +31,7 @@ export default class UserSchedule extends Component {
   async componentDidMount() {
     const IdUser = await AsyncStorage.getItem('IdUser');
 
-    await axios.get('http://192.168.1.10:57033/api/Appointments/'+IdUser,)
+    await axios.get(config.apiAddress+'/api/Appointments/'+IdUser,)
     .then(res=>{
       const appointments = res.data
       this.setState({appointments})
@@ -84,7 +85,7 @@ export default class UserSchedule extends Component {
           
           if(appointments !== {}) {
             const apps = appointments.filter(app => {
-              const date = app.vlDate
+              const date = Moment(app.vlDate).format('YYYY-MM-DD').toString();
               return (date === strTime);
             });
   

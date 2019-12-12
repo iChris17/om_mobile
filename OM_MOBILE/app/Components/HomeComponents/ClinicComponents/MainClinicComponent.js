@@ -15,22 +15,9 @@ export default class componentName extends Component {
     }
   }
 
-  async componentDidMount() {
-    const params =  this.props.navigation.getParam('params')
-
-    await axios.get('http://192.168.1.10:57033/api/Specialties/'+params.idRegistered,)
-    .then(res=>{
-      //console.log(res.data)
-      const speciality = res.data
-      this.setState({speciality})
-    }).catch(e=>{
-      console.log(e)
-    })
-  }
-
   render() {
     const params =  this.props.navigation.getParam('params')
-    const {speciality} = this.state
+    
     return (
       <ScrollView contentContainerStyle={styles.viewBody}>
         <View >
