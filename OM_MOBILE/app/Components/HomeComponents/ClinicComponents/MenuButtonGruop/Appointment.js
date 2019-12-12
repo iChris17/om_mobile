@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 import Moment from 'moment';
 import axios from 'axios'
+import config from '../../../../config/API_CONNECTION'
 
 export default class Appointment extends Component {
     constructor(props){
@@ -63,7 +64,7 @@ export default class Appointment extends Component {
             usUpdated: ''
         }
 
-        await axios.post('http://192.168.1.10:57033/api/ClinicSchedules', obj)
+        await axios.post(config.apiAddress+'/api/ClinicSchedules', obj)
             .then((res) => {
                 alert('Su solicitud ha sido enviada')
             }).catch((err) => {console.log(err)})

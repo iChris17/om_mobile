@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text,ActivityIndicator} from 'react-native';
 import {Card, Button, Image} from 'react-native-elements';
 import axios from 'axios'
+import config from '../../config/API_CONNECTION'
 
 export default class BussinessComponent extends Component {
 
@@ -18,7 +19,7 @@ onPressDetails=selectedClinic=>{
 }
 
 async componentDidMount(){
-  await axios.get('http://192.168.1.21:57033/api/clinics',)
+  await axios.get(config.apiAddress+'/api/clinics',)
   .then(res=>{
     //console.log(res.data)
     const clinics = res.data

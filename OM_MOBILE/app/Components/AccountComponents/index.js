@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import AvatarSection from './AvatarSection';
 import MedicalData from './MedicalData';
-
+import config from '../../config/API_CONNECTION'
 
 export default class AccountMainComponent extends Component {
   constructor() {
@@ -34,7 +34,7 @@ export default class AccountMainComponent extends Component {
       })
       .catch(err => {});
     let promiseUser = axios.get(
-      'http://192.168.1.21:57033/api/pacients/' + email + '',
+      config.apiAddress+'/api/pacients/' + email + '',
     );
 
     let user;

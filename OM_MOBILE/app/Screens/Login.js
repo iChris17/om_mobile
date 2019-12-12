@@ -16,7 +16,7 @@ import t from 'tcomb-form-native';
 import {LoginStruct, LoginOptions} from '../forms/Login';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-
+import config from '../config/API_CONNECTION'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Form = t.form.Form;
@@ -52,7 +52,7 @@ export default class Login extends Component {
       const pass = validate.password
       let id 
       let promise = axios.get(
-        'http://192.168.1.10:57033/api/pacients/' + validate.email + '',
+        config.apiAddress+'/api/pacients/' + validate.email + '',
       );
 
       await promise

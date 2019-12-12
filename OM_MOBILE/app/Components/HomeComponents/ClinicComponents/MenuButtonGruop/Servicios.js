@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import axios from 'axios';
 import {Card, ListItem} from 'react-native-elements';
+import config from '../../../../config/API_CONNECTION'
 
 export default class Servicios extends Component {
   constructor() {
@@ -13,49 +14,18 @@ export default class Servicios extends Component {
   }
 
   async componentDidMount() {
-    const {idClinic} = this.props;
-    let services = axios.get(
-      'http://192.168.1.21:57033/api/services/' + idClinic + '',
-    );
-    let specialties = axios.get(
-      'http://192.168.1.21:57033/api/specialties/' + idClinic + '',
-    );
-
-    let service = null,
-      specialty = null;
-    await services
-      .then(res => {
-        service = res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    await specialties
-      .then(res => {
-        specialty = res.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    if (service != null || specialty != null) {
-      this.setState({
-        services: service,
-        specialties: specialty,
-      });
-    }
+  
   }
 
   render() {
-    const {services, specialties} = this.state;
+    const {Services, Specialties} = this.props;
     return (
       <View>
         <Card
           containerStyle={{padding: 0, marginBottom: 10}}
           title="Especialidades"
           titleStyle={styles.servicesTitle}>
-          {specialties.map((u, i) => {
+          {Specialties.map((u, i) => {
             return (
               <ListItem
                 key={i}
@@ -73,7 +43,7 @@ export default class Servicios extends Component {
           containerStyle={{padding: 0, marginBottom: 10}}
           title="Servicios Adicionales"
           titleStyle={styles.servicesTitle}>
-          {services.map((u, i) => {
+          {Services.map((u, i) => {
             return (
               <ListItem
                 key={i}

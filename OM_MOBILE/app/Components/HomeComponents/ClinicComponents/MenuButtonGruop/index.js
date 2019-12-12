@@ -7,7 +7,7 @@ import Appointment from './Appointment'
 
 export default class index extends Component {
   render() {
-    const {Clinic,Option} = this.props;
+    const {Clinic,Option,Services,Specialties,Personals} = this.props;
 
     switch (Option) {
       case 0:
@@ -21,7 +21,7 @@ export default class index extends Component {
       case 1:
         return (
           <View style={styles.viewBody}>
-            <Personal />
+            <Personal personal={Personals}/>
           </View>
         );
         break;
@@ -29,7 +29,7 @@ export default class index extends Component {
       case 2:
         return (
           <View style={styles.viewBody}>
-            <Servicios idClinic={Clinic.idRegistered}/>
+            <Servicios Services={Services} Specialties={Specialties}/>
           </View>
         );
         break;

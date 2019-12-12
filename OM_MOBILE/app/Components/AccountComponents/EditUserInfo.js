@@ -12,6 +12,7 @@ import ImagePicker from 'react-native-image-picker';
 import {PERMISSIONS, request} from 'react-native-permissions';
 import axios from 'axios';
 import {StackActions, NavigationActions} from 'react-navigation';
+import config from '../../config/API_CONNECTION'
 export default class EditUserInfo extends Component {
   constructor() {
     super();
@@ -57,6 +58,9 @@ export default class EditUserInfo extends Component {
       takePhotoButtonTitle: 'Tomar Foto',
       chooseFromLibraryButtonTitle: 'Escoger de la librería',
       cancelButtonTitle: 'Cancelar',
+      quality:1,
+      maxWidth:300,
+      maxHeight:300
     };
 
     ImagePicker.showImagePicker(options, response => {
@@ -65,6 +69,7 @@ export default class EditUserInfo extends Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
+       
         this.props.navigation.getParam('params').vlImage = response.data;
         this.setState(state => ({
           user: {
@@ -79,7 +84,7 @@ export default class EditUserInfo extends Component {
   onPressConfirmEdit = async () => {
     const {user} = this.state;
     axios
-      .put('http://192.168.1.21:57033/api/pacients/' + user.email + '', user)
+      .put(config.apiAddress+'/api/pacients/' + user.email + '', user)
       .then(e => {
         /* this.props.navigation.state.params.onSelect(true);
       this.props.navigation.goBack();*/

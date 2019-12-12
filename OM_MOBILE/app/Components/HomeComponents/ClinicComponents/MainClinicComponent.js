@@ -22,9 +22,5 @@ export default class componentName extends Component {
 const styles=StyleSheet.create({
   viewBody:{
     backgroundColor: '#f2f2f7',
-    //flex:1
-   // marginLeft:5,
-    //marginRight:5,
-   //height:screen
   }
 })
