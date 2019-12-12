@@ -12,6 +12,7 @@ export default class Appointment extends Component {
         this.state = {
             date: new Date(),
             time: new Date(),
+            specialiy: '',
             showDate: false,
             showTime: false
         }
@@ -49,21 +50,25 @@ export default class Appointment extends Component {
 
     handleSave = async () => {
         const {Clinic} = this.props;
-        const {date, time} = this.state;
+        const {date, time, specialiy} = this.state;
+        const email = await AsyncStorage.getItem('email');
         const idUser = await AsyncStorage.getItem('IdUser');
 
         const obj = {
             id: 0,
-            idCompany: Clinic,
-            vlDays: date.toLocaleDateString(),
-            vlHours: time.toTimeString(),
+            idClinic: Clinic,
+            idSpeciality: specialiy,
+            vlDate: date.toLocaleDateString(),
+            vlTime: time.toTimeString(),
+            idPacients: idUser,
+            state: 'PENDIENTE',
             dtRegistered: new Date(),
-            usRegistered: idUser,
+            usRegistered: email,
             dtUpdate: new Date(),
             usUpdated: ''
         }
 
-        await axios.post('http://192.168.1.10:57033/api/ClinicSchedules', obj)
+        await axios.post('http://192.168.1.10:57033/api/AppointmentRequests', obj)
             .then((res) => {
                 alert('Su solicitud ha sido enviada')
             }).catch((err) => {console.log(err)})
