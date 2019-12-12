@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,StyleSheet} from 'react-native';
+import {View,Text,StyleSheet, Picker} from 'react-native';
 import {Button, Input,Icon} from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,6 +13,7 @@ export default class Appointment extends Component {
         this.state = {
             date: new Date(),
             time: new Date(),
+            specialiy: 1,
             showDate: false,
             showTime: false
         }
@@ -50,28 +51,41 @@ export default class Appointment extends Component {
 
     handleSave = async () => {
         const {Clinic} = this.props;
-        const {date, time} = this.state;
+        const {date, time, specialiy} = this.state;
+        const email = await AsyncStorage.getItem('email');
         const idUser = await AsyncStorage.getItem('IdUser');
 
         const obj = {
             id: 0,
-            idCompany: Clinic,
-            vlDays: date.toLocaleDateString(),
-            vlHours: time.toTimeString(),
+            idClinic: Clinic,
+            idSpeciality: specialiy,
+            vlDate: date,
+            vlTime: time,
+            idPacients: idUser,
+            state: 'PENDIENTE',
             dtRegistered: new Date(),
-            usRegistered: idUser,
-            dtUpdate: new Date(),
+            usRegistered: email,
+            dtUpdated: new Date(),
             usUpdated: ''
         }
 
-        await axios.post(config.apiAddress+'/api/ClinicSchedules', obj)
+        await axios.post('http://192.168.1.10:57033/api/AppointmentRequests', obj)
             .then((res) => {
                 alert('Su solicitud ha sido enviada')
             }).catch((err) => {console.log(err)})
     }
 
     render() {
-        const { showDate, showTime, date, time } = this.state;
+        const {Especialidades} = this.props;
+        const { showDate, showTime, date, time, specialiy } = this.state;
+
+        Moment.updateLocale('es', {
+            months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+            monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dic.'.split('_'),
+            weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+            weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+            weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+        });
 
         return (
             <View style={styles.container}>
@@ -80,6 +94,7 @@ export default class Appointment extends Component {
                     <Input
                         containerStyle={styles.containerStyle}
                         inputStyle={styles.inputStyle}
+                        labelStyle={styles.labelStyles}
                         disabled
                         label='Fecha de la cita'
                         placeholder='Fecha de la cita'
@@ -89,12 +104,28 @@ export default class Appointment extends Component {
                     <Input
                         containerStyle={styles.containerStyle}
                         inputStyle={styles.inputStyle}
+                        labelStyle={styles.labelStyles}
                         disabled
                         label='Hora de la cita'
                         placeholder='Hora de la cita'
                         rightIcon={<Icon name="clock" type="material-community" color="gray" onPress={() => this.timepicker()} />}
                         value={Moment(time).format('hh:mm a')}
                     />
+                    <Text style={styles.labelStyles}>Seleccione la especialidad</Text>
+                    <Picker
+                        selectedValue={specialiy}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({specialiy: itemValue})
+                        }
+                    >
+                        {
+                            Especialidades.map((spe, i) => {
+                                return(
+                                    <Picker.Item label={spe.name} value={spe.id} />
+                                );
+                            })
+                        }
+                    </Picker>
                     <Button 
                         title='Solicitar'
                         buttonStyle={styles.button}
@@ -141,8 +172,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'gray',
         fontSize: 16,
-        marginTop: 5,
-        marginBottom: 0,
+        marginLeft: 10
     },
     button: {
         marginTop: 10,

@@ -91,7 +91,7 @@ export default class Login extends Component {
     this.setState({logOut: true});
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     console.log('LOGIN');
   }
 

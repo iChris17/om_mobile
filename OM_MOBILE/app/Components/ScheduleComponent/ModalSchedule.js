@@ -35,41 +35,41 @@ export default class ModalSchedule extends Component{
           </TouchableOpacity>
           <View style={styles.modal}>
             <View style={styles.modalHeader}>
-              <Text style={{fontSize: 24, fontWeight: 'bold'}}>{app.clinica}</Text>
-              <Text style={{fontSize: 16}}>{app.especialidad}</Text>
+              <Text style={{fontSize: 24, fontWeight: 'bold'}}>{app.nbClinic}</Text>
+              <Text style={{fontSize: 16}}>{app.name}</Text>
             </View>
             <View style={styles.modalBody}>
               <ListItem 
-                key={new Date(app.fecha).toDateString()}
+                key='fecha'
                 title='Fecha'
-                subtitle={Moment(app.fecha).format('ddd, DD [de] MMMM, YYYY')}
+                subtitle={Moment(app.vlDate).format('ddd, DD [de] MMMM, YYYY')}
                 bottomDivider
                 containerStyle={styles.listMedicalData}
                 subtitleStyle={styles.subtitileMedicalList}
                 titleStyle={styles.titleMedicalList}
               />
               <ListItem 
-                key={new Date(app.fecha).toTimeString()}
+                key='hora'
                 title='Hora'
-                subtitle={Moment(app.fecha).format('hh:mm A').toString()}
+                subtitle={Moment(app.vlTime).format('hh:mm A').toString()}
                 bottomDivider
                 containerStyle={styles.listMedicalData}
                 subtitleStyle={styles.subtitileMedicalList}
                 titleStyle={styles.titleMedicalList}
               />
               <ListItem 
-                key={app.medico.toString()}
+                key={app.nombre}
                 title='Médico'
-                subtitle={app.medico}
+                subtitle={app.nombre}
                 bottomDivider
                 containerStyle={styles.listMedicalData}
                 subtitleStyle={styles.subtitileMedicalList}
                 titleStyle={styles.titleMedicalList}
               />
               <ListItem 
-                key={app.sala.toString()}
+                key='sala'
                 title='Sala'
-                subtitle={app.sala.toString()}
+                subtitle={'2'}
                 bottomDivider
                 containerStyle={styles.listMedicalData}
                 subtitleStyle={styles.subtitileMedicalList}
@@ -78,7 +78,7 @@ export default class ModalSchedule extends Component{
             </View>
             <View style={styles.modalFooter}>
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#e58586'}]} title="Confirmar"/>
+                <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#e58586'}]} title="Posponer"/>
                 <Button buttonStyle={[styles.buttonFooter, {backgroundColor: '#86bbd8'}]} title="Cancelar"/>
               </View>
             </View>
