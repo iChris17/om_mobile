@@ -1,28 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {Button, Icon} from 'react-native-elements';
-import {Appointments} from '../variables/appointments';
 import ModalSchedule from '../Components/ScheduleComponent/ModalSchedule';
 import {Agenda, LocaleConfig} from 'react-native-calendars'
 import Moment from 'moment';
-
-const width = Dimensions.get('screen').width;
-const height = Dimensions.get('screen').height;
-
-const monthNames = [
-  {month: "Ene", number: 0}, 
-  {month: "Feb", number: 1}, 
-  {month: "Mar", number: 2},
-  {month: "Abr", number: 3},
-  {month: "May", number: 4},
-  {month: "Jun", number: 5},
-  {month: "Jul", number: 6},
-  {month: "Ago", number: 7},
-  {month: "Sep", number: 8},
-  {month: "Oct", number: 9},
-  {month: "Nov", number: 10},
-  {month: "Dic", number: 11}
-];
+import axios from 'axios';
 
 export default class UserSchedule extends Component {
   constructor(){
@@ -38,8 +21,23 @@ export default class UserSchedule extends Component {
         fecha: new Date(),
         estado: true
       },
-      items: {}
+      items: {},
+      show: false,
+      appointments: {}
     }
+  }
+
+  async componentDidMount() {
+    const IdUser = await AsyncStorage.getItem('IdUser');
+
+    await axios.get('http://192.168.1.10:57033/api/Appointments/'+IdUser,)
+    .then(res=>{
+      const appointments = res.data
+      this.setState({appointments})
+      setTimeout(() => this.setState({show: true}), 100)
+    }).catch(e=>{
+      console.log(e)
+    })
   }
 
   setModalVisible(visible, app) {
@@ -47,7 +45,7 @@ export default class UserSchedule extends Component {
   }
 
   render() {
-    const { modal, app } = this.state;
+    const { modal, app, show } = this.state;
 
     LocaleConfig.locales['es'] = {
       monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
@@ -60,22 +58,23 @@ export default class UserSchedule extends Component {
 
     return (
       <View style={{flex: 1}}>
-        <Agenda
-          items={this.state.items}
-          loadItemsForMonth={this.loadItems.bind(this)}
-          selected={new Date().toLocaleDateString()}
-          renderItem={this.renderItem.bind(this)}
-          renderEmptyDate={this.renderEmptyDate.bind(this)}
-          rowHasChanged={this.rowHasChanged.bind(this)}
-          theme={{selectedDayBackgroundColor: '#e58586', dotColor: '#86BBD8'}}
-        />
+        {show && <Agenda
+                    items={this.state.items}
+                    loadItemsForMonth={this.loadItems.bind(this)}
+                    selected={new Date().toLocaleDateString()}
+                    renderItem={this.renderItem.bind(this)}
+                    renderEmptyDate={this.renderEmptyDate.bind(this)}
+                    rowHasChanged={this.rowHasChanged.bind(this)}
+                    theme={{selectedDayBackgroundColor: '#e58586', dotColor: '#86BBD8'}}
+                  />
+        }
         <ModalSchedule app={app} visible={modal} setVisible={() => this.setModalVisible(!modal, app)}/>
       </View>
     );
   }
 
   loadItems(day) {
-    const {items} = this.state;
+    const {items, appointments} = this.state;
     setTimeout(() => {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -83,14 +82,16 @@ export default class UserSchedule extends Component {
         if (!items[strTime]) {
           items[strTime] = [];
           
-          const appointments = Appointments.filter(app => {
-            const date = Moment(app.fecha).format('YYYY-MM-DD').toString();
-            return (date === strTime);
-          });
-
-          appointments.forEach(app => {
-            items[strTime].push(app);
-          });
+          if(appointments !== {}) {
+            const apps = appointments.filter(app => {
+              const date = app.vlDate
+              return (date === strTime);
+            });
+  
+            apps.forEach(app => {
+              items[strTime].push(app);
+            });
+          }
         }
       }
       const newItems = {};
@@ -105,18 +106,12 @@ export default class UserSchedule extends Component {
   renderItem(item) {
     return (
       <View style={styles.item}>
-        <Text style={styles.time}>{Moment(item.fecha).format('hh:mm A').toString()}</Text>
-        <Text style={styles.title}>{item.clinica}</Text>
-        <Text style={styles.subtitle}>{item.especialidad}</Text>
-        <Text style={styles.subtitle}>Sala {item.sala}</Text>
-        <Button type='clear' buttonStyle={styles.button} icon={
-          <Icon
-            name='cogs'
-            type='font-awesome'
-            color='#86BBD8'
-          />}
-          onPress={()=> this.setModalVisible(true, item)}
-        />
+        <TouchableOpacity onPress={() => this.setModalVisible(true, item)}>
+          <Text style={styles.time}>{Moment(item.vlTime).format('hh:mm A').toString()}</Text>
+          <Text style={styles.title}>{item.nbClinic}</Text>
+          <Text style={styles.subtitle}>{item.name}</Text>
+          <Text style={styles.subtitle}>Sala {item.sala}</Text>
+        </TouchableOpacity>
       </View>
     );
   }

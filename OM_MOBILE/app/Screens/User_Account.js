@@ -33,7 +33,7 @@ export default class UserAccount extends Component {
   render() {
       return (
         <ScrollView style={styles.viewBody}>
-          {/* <MainAccountComponent goEditUser={this.goEditUser} /> */}
+          <MainAccountComponent goEditUser={this.goEditUser} />
           <View style={{alignItems: 'center'}}>
             <Button
               title="Cerrar Sesión"

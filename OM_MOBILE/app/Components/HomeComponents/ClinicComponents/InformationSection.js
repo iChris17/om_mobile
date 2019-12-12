@@ -48,7 +48,7 @@ export default class componentName extends Component {
       {element: btnSpec},
       {element: btnAppoint},
     ];
-    const {Address,Description,Phone,Clinic} = this.props
+    const {Address,Description,Phone,Clinic, Especialidades} = this.props
     return (
       <View style={styles.viewBody}>
         <ButtonGroup
@@ -58,7 +58,7 @@ export default class componentName extends Component {
           containerStyle={{height: 80, borderRadius:10}}
           selectedButtonStyle={{backgroundColor:"#e5e5ea"}}
         />
-        <MenuButtonGroup Option={selectedIndex} Address={Address} Description={Description} Phone={Phone} Clinic={Clinic}/>
+        <MenuButtonGroup Option={selectedIndex} Address={Address} Description={Description} Phone={Phone} Clinic={Clinic} Especialidades={Especialidades}/>
       </View>
     );
   }
